@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1010010283171",
+    "firebase_url": "https://farewell-ee9ad-default-rtdb.firebaseio.com",
+    "project_id": "farewell-ee9ad",
+    "storage_bucket": "farewell-ee9ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010010283171:android:4378efd25dcc70945bf316",
+        "android_client_info": {
+          "package_name": "com.blackgoose.fare_the_well"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010010283171-u5nmkg7kmfhaonl8l4r9m91280osqlnv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blackgoose.fare_the_well",
+            "certificate_hash": "ec64eeab08dd1771c35635e441c60d0e3aa741c1"
+          }
+        },
+        {
+          "client_id": "1010010283171-vn8fj0sl46t0722pqvm40f8eavhksqv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI11iKDS0o3Tt1mp-rUJkarBMeTrNUOKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010010283171-vn8fj0sl46t0722pqvm40f8eavhksqv6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

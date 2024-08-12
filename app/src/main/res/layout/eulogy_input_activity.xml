@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/deceased_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/gallery"/>
+
+    <EditText
+        android:id="@+id/firstNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:hint="First Name"
+        android:inputType="textCapSentences"
+        android:textColor="#272727"
+        android:textStyle="bold"
+        android:textColorHint="#9D9C9C"
+        android:textSize="15sp"
+        android:layout_margin="10dp"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/secondNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:hint="Second Name"
+        android:inputType="textCapSentences"
+        android:textColor="#272727"
+        android:textStyle="bold"
+        android:textColorHint="#9D9C9C"
+        android:textSize="15sp"
+        android:layout_margin="10dp"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/lastNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:hint="Last Name"
+        android:inputType="textCapSentences"
+        android:textColor="#272727"
+        android:textStyle="bold"
+        android:textColorHint="#9D9C9C"
+        android:textSize="15sp"
+        android:layout_margin="10dp"
+        android:padding="10dp"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/DateofBirthEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/edittext_background"
+        android:drawableEnd="@drawable/calendar"
+        android:hint="Date of birth"
+        android:padding="10dp"
+        android:textColor="#272727"
+        android:textColorHint="#8C8A8A" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/passOnEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/edittext_background"
+        android:drawableEnd="@drawable/calendar"
+        android:hint="Pass on date"
+        android:padding="10dp"
+        android:textColor="#272727"
+        android:textColorHint="#8C8A8A" />
+
+    <EditText
+        android:id="@+id/burialLocationEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:hint="Burial Location"
+        android:inputType="textCapSentences"
+        android:textColor="#272727"
+        android:textStyle="bold"
+        android:textColorHint="#9D9C9C"
+        android:textSize="15sp"
+        android:layout_margin="10dp"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/earlylife_biographyEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:hint= "Early life"
+        android:lineHeight="20dp"
+        android:textColor="#272727"
+        android:textStyle="bold"
+        android:textColorHint="#858585"
+        android:textSize="15sp"
+        android:layout_margin="10dp"
+        android:inputType="textMultiLine"
+        android:padding="5dp"/>
+
+    <EditText
+        android:id="@+id/education_biographyEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:hint= "Education"
+        android:lineHeight="20dp"
+        android:textColor="#272727"
+        android:textStyle="bold"
+        android:textColorHint="#858585"
+        android:textSize="15sp"
+        android:layout_margin="10dp"
+        android:inputType="textMultiLine"
+        android:padding="5dp"/>
+    <EditText
+        android:id="@+id/family_biographyEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:hint= "Family"
+        android:lineHeight="20dp"
+        android:textColor="#272727"
+        android:textStyle="bold"
+        android:textColorHint="#858585"
+        android:textSize="15sp"
+        android:layout_margin="10dp"
+        android:inputType="textMultiLine"
+        android:padding="5dp"/>
+    <EditText
+        android:id="@+id/work_biographyEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:hint= "Work"
+        android:lineHeight="20dp"
+        android:textColor="#272727"
+        android:textStyle="bold"
+        android:textColorHint="#858585"
+        android:textSize="15sp"
+        android:layout_margin="10dp"
+        android:inputType="textMultiLine"
+        android:padding="5dp"/>
+    <EditText
+        android:id="@+id/final_biographyEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:hint= "Final moments"
+        android:lineHeight="20dp"
+        android:textColor="#272727"
+        android:textStyle="bold"
+        android:textColorHint="#858585"
+        android:textSize="15sp"
+        android:layout_margin="10dp"
+        android:inputType="textMultiLine"
+        android:padding="5dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_background"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eulogy Author"
+            android:layout_gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/only_visible_to_farewell"
+            android:layout_gravity="center"
+            />
+
+        <EditText
+            android:id="@+id/authorNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_background"
+            android:hint="Your Name"
+            android:inputType="textCapSentences"
+            android:textColor="#272727"
+            android:textStyle="bold"
+            android:textColorHint="#9D9C9C"
+            android:textSize="15sp"
+            android:layout_margin="10dp"
+            android:padding="10dp"/>
+
+        <EditText
+            android:id="@+id/phoneEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_background"
+            android:hint="Your phone"
+            android:textColor="#272727"
+            android:textStyle="bold"
+            android:textColorHint="#9D9C9C"
+            android:textSize="15sp"
+            android:layout_margin="10dp"
+            android:inputType="phone"
+            android:padding="10dp"/>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/upload_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#B68973"
+        android:text="upload"
+        android:drawableEnd="@drawable/cloud_upload"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+</LinearLayout>
+</ScrollView>

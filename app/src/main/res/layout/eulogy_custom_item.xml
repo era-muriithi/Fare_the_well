@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
+    android:id="@+id/listCard"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+<RelativeLayout
+    android:id="@+id/list_layout"
+    android:layout_width="match_parent"
+    android:padding="5dp"
+    android:background="@drawable/background_reference"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/rame" />
+
+    <LinearLayout
+        android:id="@+id/namesLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_toEndOf="@+id/img"
+        >
+
+    <TextView
+        android:id="@+id/Fname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/img"
+        android:paddingBottom="10dp"
+        android:text="John"
+        android:textColor="#2C2C2C"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/Sname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/Fname"
+        android:paddingBottom="10dp"
+        android:text="Mark"
+        android:textColor="#2C2C2C"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Lname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/Sname"
+        android:paddingBottom="10dp"
+        android:text="Woods"
+        android:textColor="#2C2C2C"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/datesLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_toEndOf="@+id/img"
+        android:layout_below="@+id/namesLayout"
+        >
+
+    <TextView
+        android:id="@+id/born_dates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Fname"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/img"
+        android:text="12/12/2020"
+        android:textColor="#2C2C2C"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textColor="@color/black"
+        android:textSize="50sp"
+        />
+
+    <TextView
+        android:id="@+id/death_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="12/12/2020"
+        android:textColor="#2C2C2C"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>
+</androidx.cardview.widget.CardView>
