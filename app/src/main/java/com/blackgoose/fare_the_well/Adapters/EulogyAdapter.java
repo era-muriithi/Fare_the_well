@@ -19,6 +19,8 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
+import java.util.List;
+
 public class EulogyAdapter extends FirebaseRecyclerAdapter<EulogyModel, EulogyAdapter.myViewHolder> {
 
     public EulogyAdapter (FirebaseRecyclerOptions<EulogyModel> options) {
@@ -39,34 +41,67 @@ public class EulogyAdapter extends FirebaseRecyclerAdapter<EulogyModel, EulogyAd
         holder.deceased_dob.setText(model.getDateOfBirth());
         holder.deceased_dod.setText(model.getDateOfDeath());
 
-        Glide.with(holder.deceased_img.getContext())
-                .load(model.getDeceasedPicture())
-                .placeholder(R.drawable.person_24)
-                .error(R.drawable.person_24)
-                .into(holder.deceased_img);
+//        Glide.with(holder.deceased_img.getContext())
+//                .load(model.getDeceasedPicture())
+//                .placeholder(R.drawable.person_24)
+//                .error(R.drawable.person_24)
+//                .into(holder.deceased_img);
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context context = view.getContext();
-                Intent intent = new Intent(context, EulogyDetailsActivity.class);
-                intent.putExtra("deceasedImage", model.getDeceasedPicture());
-                intent.putExtra("deceasedFname", model.getDeceasedFname());
-                intent.putExtra("deceasedSname", model.getDeceasedSname());
-                intent.putExtra("deceasedLname", model.getDeceasedLname());
-                intent.putExtra( "deceaseDob", model.getDateOfBirth());
-                intent.putExtra("deceasedDod", model.getDateOfDeath());
-                intent.putExtra("burialLocation", model.getBurialLocation());
-                intent.putExtra("deceasedEarlylife", model.getEarlylifeBiography());
-                intent.putExtra("deceasedEducation", model.getEducationBiography());
-                intent.putExtra("deceasedWork", model.getWorkBiography());
-                intent.putExtra("deceasedFamily", model.getFamilyBiography());
-                intent.putExtra("deceaseFinalMoments", model.getFinalMoments());
-                intent.putExtra("Key", model.getKey());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
+        List<String> pictures = model.getDeceasedPictures();
+        if (pictures != null && !pictures.isEmpty()) {
+            Glide.with(holder.deceased_img.getContext())
+                    .load(pictures.get(0))  // Load the first image
+                    .placeholder(R.drawable.person_24)
+                    .error(R.drawable.person_24)
+                    .into(holder.deceased_img);
+        } else {
+            holder.deceased_img.setImageResource(R.drawable.person_24);
+        }
+
+        holder.cardView.setOnClickListener(view -> {
+            Context context = view.getContext();
+            Intent intent = new Intent(context, EulogyDetailsActivity.class);
+            intent.putExtra("user1", model.getUserUid());
+            intent.putExtra("user", model.getUid());
+
+//            intent.putExtra("deceasedFname", model.getDeceasedFname());
+//            intent.putExtra("deceasedSname", model.getDeceasedSname());
+//            intent.putExtra("deceasedLname", model.getDeceasedLname());
+//            intent.putExtra("deceaseDob", model.getDateOfBirth());
+//            intent.putExtra("deceasedDod", model.getDateOfDeath());
+//            intent.putExtra("burialLocation", model.getBurialLocation());
+//            intent.putExtra("deceasedEarlylife", model.getEarlylifeBiography());
+//            intent.putExtra("deceasedEducation", model.getEducationBiography());
+//            intent.putExtra("deceasedWork", model.getWorkBiography());
+//            intent.putExtra("deceasedFamily", model.getFamilyBiography());
+//            intent.putExtra("deceaseFinalMoments", model.getFinalMoments());
+//            intent.putExtra("Key", model.getKey());
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
         });
+//
+//        holder.cardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Context context = view.getContext();
+//                Intent intent = new Intent(context, EulogyDetailsActivity.class);
+//                intent.putExtra("deceasedImage", model.getDeceasedPicture());
+//                intent.putExtra("deceasedFname", model.getDeceasedFname());
+//                intent.putExtra("deceasedSname", model.getDeceasedSname());
+//                intent.putExtra("deceasedLname", model.getDeceasedLname());
+//                intent.putExtra( "deceaseDob", model.getDateOfBirth());
+//                intent.putExtra("deceasedDod", model.getDateOfDeath());
+//                intent.putExtra("burialLocation", model.getBurialLocation());
+//                intent.putExtra("deceasedEarlylife", model.getEarlylifeBiography());
+//                intent.putExtra("deceasedEducation", model.getEducationBiography());
+//                intent.putExtra("deceasedWork", model.getWorkBiography());
+//                intent.putExtra("deceasedFamily", model.getFamilyBiography());
+//                intent.putExtra("deceaseFinalMoments", model.getFinalMoments());
+//                intent.putExtra("Key", model.getKey());
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                context.startActivity(intent);
+//            }
+//        });
 
     }
 

@@ -1,5 +1,6 @@
 package com.blackgoose.fare_the_well.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,6 +24,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.List;
+
 public class UserEulogyAdapter extends FirebaseRecyclerAdapter<EulogyModel, UserEulogyAdapter.myViewHolder> {
     ProgressBar progressBar;
 
@@ -36,26 +39,36 @@ public class UserEulogyAdapter extends FirebaseRecyclerAdapter<EulogyModel, User
         return new myViewHolder(view);
     }
 
-    protected void onBindViewHolder(@NonNull UserEulogyAdapter.myViewHolder holder, int position, @NonNull EulogyModel model) {
+    protected void onBindViewHolder(@NonNull UserEulogyAdapter.myViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull EulogyModel model) {
 
         holder.deceased_Fname.setText(model.getDeceasedFname());
         holder.deceased_Sname.setText(model.getDeceasedSname());
         holder.deceased_Lname.setText(model.getDeceasedLname());
         holder.deceased_dob.setText(model.getDateOfBirth());
         holder.deceased_dod.setText(model.getDateOfDeath());
-
-        Glide.with(holder.deceased_img.getContext())
-                .load(model.getDeceasedPicture())
-                .placeholder(R.drawable.person_24)
-                .error(R.drawable.person_24)
-                .into(holder.deceased_img);
+        List<String> pictures = model.getDeceasedPictures();
+        if (pictures != null && !pictures.isEmpty()) {
+            Glide.with(holder.deceased_img.getContext())
+                    .load(pictures.get(0))  // Load the first image
+                    .placeholder(R.drawable.person_24)
+                    .error(R.drawable.person_24)
+                    .into(holder.deceased_img);
+        } else {
+            // Handle the case where there are no pictures
+            holder.deceased_img.setImageResource(R.drawable.person_24);
+        }
+//        Glide.with(holder.deceased_img.getContext())
+//                .load(model.getDeceasedPicture())
+//                .placeholder(R.drawable.person_24)
+//                .error(R.drawable.person_24)
+//                .into(holder.deceased_img);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Context context = view.getContext();
                 Intent intent = new Intent(context, UserEulogyDetailActivity.class);
-                intent.putExtra("deceasedImage", model.getDeceasedPicture());
+//                intent.putExtra("deceasedImage", model.getDeceasedPicture());
                 intent.putExtra("deceasedFname", model.getDeceasedFname());
                 intent.putExtra("deceasedSname", model.getDeceasedSname());
                 intent.putExtra("deceasedLname", model.getDeceasedLname());
