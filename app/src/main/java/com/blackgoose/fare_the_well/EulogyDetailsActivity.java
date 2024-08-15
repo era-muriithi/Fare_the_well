@@ -176,14 +176,7 @@ public class EulogyDetailsActivity extends AppCompatActivity {
                             ImageSliderAdapter imageSliderAdapter = new ImageSliderAdapter(EulogyDetailsActivity.this, imageUrls);
                             viewPager.setAdapter(imageSliderAdapter);
                         }
-//                        imageUrls.clear();
-//                        if (eulogy.getDeceasedPictures() != null) {
-//                            imageUrls.addAll(eulogy.getDeceasedPictures());
-//                        }
-//
-//                        // Set up the image slider
-//                        imageSliderAdapter = new ImageSliderAdapter(EulogyDetailsActivity.this, imageUrls);
-//                        viewPager.setAdapter(imageSliderAdapter);
+
                     }
                 }
             }
