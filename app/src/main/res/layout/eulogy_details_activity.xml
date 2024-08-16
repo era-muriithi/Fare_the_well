@@ -10,13 +10,14 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     >
-    
+
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager_images"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_margin="12dp"/>
+        android:layout_margin="12dp" />
+
     <LinearLayout
         android:id="@+id/deceased_names_layout"
         android:background="@drawable/names_background"
