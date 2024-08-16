@@ -86,6 +86,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.blackgoose.fare_the_well.Adapters.ImageSliderAdapter;
 import com.blackgoose.fare_the_well.Models.EulogyModel;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -94,12 +96,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class EulogyDetailsActivity extends AppCompatActivity {
     ImageView deceased_image;
     TextView shareLink, deceased_Fname, deceased_Sname, deceased_Lname, deceased_dob, deceased_dod, burial_location, deceased_earlyLife, deceased_education, deceased_work, deceased_family, deceased_finalMoments;
     TextView author_name, author_phone;
-
+    String userId;
     private ViewPager viewPager;
     private List<String> imageUrls = new ArrayList<>();
     private ImageSliderAdapter imageSliderAdapter;
@@ -126,11 +129,11 @@ public class EulogyDetailsActivity extends AppCompatActivity {
         deceased_finalMoments = findViewById(R.id.final_biography);
         shareLink = findViewById(R.id.share_link);
 
-
-        String userId = getIntent().getStringExtra("user1");
+        userId  = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        String userId1 = getIntent().getStringExtra("user1");
         Toast.makeText(this, ""+userId, Toast.LENGTH_SHORT).show();
         if (userId != null) {
-            fetchData(userId);
+            fetchData(userId1);
         }
 
 
@@ -147,8 +150,11 @@ public class EulogyDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void fetchData(String userId) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Eulogies").child(userId);
+    private void fetchData(String user1) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("Eulogies").child(userId)
+                .child(user1); // Use user1 as the key to get the specific eulogy data
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -171,29 +177,18 @@ public class EulogyDetailsActivity extends AppCompatActivity {
 
                         List<String> imageUrls = eulogy.getDeceasedPictures();
                         if (imageUrls != null && !imageUrls.isEmpty()) {
-
-                            Log.d("url" ,imageUrls.toString());
+                            Log.d("url", imageUrls.toString());
                             ImageSliderAdapter imageSliderAdapter = new ImageSliderAdapter(EulogyDetailsActivity.this, imageUrls);
                             viewPager.setAdapter(imageSliderAdapter);
                         }
-//                        imageUrls.clear();
-//                        if (eulogy.getDeceasedPictures() != null) {
-//                            imageUrls.addAll(eulogy.getDeceasedPictures());
-//                        }
-//
-//                        // Set up the image slider
-//                        imageSliderAdapter = new ImageSliderAdapter(EulogyDetailsActivity.this, imageUrls);
-//                        viewPager.setAdapter(imageSliderAdapter);
                     }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(EulogyDetailsActivity.this, "Failed to load data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
-
         });
     }
 }

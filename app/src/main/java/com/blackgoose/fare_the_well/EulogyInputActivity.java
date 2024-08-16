@@ -460,7 +460,7 @@ public class EulogyInputActivity extends AppCompatActivity {
         model.setAuthorName(authorName.getText().toString());
         model.setUserUid(randomUid);
 
-        database.getReference().child("Eulogies").child(randomUid).setValue(model)
+        database.getReference().child("Eulogies").child(uid).child(randomUid).setValue(model)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
