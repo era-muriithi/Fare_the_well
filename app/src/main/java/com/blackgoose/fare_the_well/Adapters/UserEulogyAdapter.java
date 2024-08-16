@@ -215,6 +215,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.blackgoose.fare_the_well.EulogyDetailsActivity;
 import com.blackgoose.fare_the_well.Models.EulogyModel;
 import com.blackgoose.fare_the_well.R;
 import com.blackgoose.fare_the_well.UserEulogyDetailActivity;
@@ -256,25 +258,33 @@ public class UserEulogyAdapter extends FirebaseRecyclerAdapter<EulogyModel, User
         } else {
             holder.deceased_img.setImageResource(R.drawable.person_24);
         }
-
         holder.cardView.setOnClickListener(view -> {
             Context context = view.getContext();
             Intent intent = new Intent(context, UserEulogyDetailActivity.class);
-            intent.putExtra("deceasedFname", model.getDeceasedFname());
-            intent.putExtra("deceasedSname", model.getDeceasedSname());
-            intent.putExtra("deceasedLname", model.getDeceasedLname());
-            intent.putExtra("deceaseDob", model.getDateOfBirth());
-            intent.putExtra("deceasedDod", model.getDateOfDeath());
-            intent.putExtra("burialLocation", model.getBurialLocation());
-            intent.putExtra("deceasedEarlylife", model.getEarlylifeBiography());
-            intent.putExtra("deceasedEducation", model.getEducationBiography());
-            intent.putExtra("deceasedWork", model.getWorkBiography());
-            intent.putExtra("deceasedFamily", model.getFamilyBiography());
-            intent.putExtra("deceaseFinalMoments", model.getFinalMoments());
-            intent.putExtra("Key", model.getKey());
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("user1", model.getUserUid());
+
+
+
             context.startActivity(intent);
         });
+//        holder.cardView.setOnClickListener(view -> {
+//            Context context = view.getContext();
+//            Intent intent = new Intent(context, UserEulogyDetailActivity.class);
+//            intent.putExtra("deceasedFname", model.getDeceasedFname());
+//            intent.putExtra("deceasedSname", model.getDeceasedSname());
+//            intent.putExtra("deceasedLname", model.getDeceasedLname());
+//            intent.putExtra("deceaseDob", model.getDateOfBirth());
+//            intent.putExtra("deceasedDod", model.getDateOfDeath());
+//            intent.putExtra("burialLocation", model.getBurialLocation());
+//            intent.putExtra("deceasedEarlylife", model.getEarlylifeBiography());
+//            intent.putExtra("deceasedEducation", model.getEducationBiography());
+//            intent.putExtra("deceasedWork", model.getWorkBiography());
+//            intent.putExtra("deceasedFamily", model.getFamilyBiography());
+//            intent.putExtra("deceaseFinalMoments", model.getFinalMoments());
+//            intent.putExtra("Key", model.getKey());
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            context.startActivity(intent);
+//        });
 
         holder.delete.setOnClickListener(view -> {
 

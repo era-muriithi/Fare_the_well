@@ -10,18 +10,24 @@
         android:background="@color/white"
         >
 
-        <ImageView
-            android:id="@+id/deceased_image"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager_images"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:scaleType="centerCrop"
-            />
+            android:layout_height="300dp"
+            android:layout_margin="12dp" />
+
+<!--        <view-->
+<!--            android:id="@+id/deceased_image"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="350dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            />-->
 
         <LinearLayout
             android:id="@+id/deceased_names_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/deceased_image"
+            android:layout_below="@+id/view_pager_images"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
