@@ -43,6 +43,7 @@ public class UserPageActivity extends AppCompatActivity {
     FirebaseStorage firebaseStorage;
     Context context;
     TextView textView;
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class UserPageActivity extends AppCompatActivity {
         textView = findViewById(R.id.termsPrivacy);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
 
+        userId  = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -68,7 +70,7 @@ public class UserPageActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         FirebaseRecyclerOptions<EulogyModel> options = new FirebaseRecyclerOptions.Builder<EulogyModel>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child("Eulogies").orderByChild("userUid").equalTo(userId), EulogyModel.class)
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("Eulogies").child(userId), EulogyModel.class)
                 .build();
 
         eulogyAdapter = new UserEulogyAdapter(options);

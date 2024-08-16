@@ -17,10 +17,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity{
 
     RecyclerView recyclerView;
     EulogyAdapter eulogyAdapter;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +33,10 @@ public class MainActivity extends AppCompatActivity{
         // Getting reference of recyclerView
         recyclerView = (RecyclerView) findViewById(R.id.eulogylist);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         FirebaseRecyclerOptions<EulogyModel> options = new FirebaseRecyclerOptions.Builder<EulogyModel>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child("Eulogies"), EulogyModel.class)
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("Eulogies").child(userId), EulogyModel.class)
                 .build();
 
         eulogyAdapter = new EulogyAdapter(options);
