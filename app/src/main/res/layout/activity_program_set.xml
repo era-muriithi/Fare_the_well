@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Funeral Progam"
+        android:textColor="#FF5722"
+        android:textSize="18dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"/>
+
+    <!-- TimePicker Dialog trigger -->
+    <EditText
+        android:id="@+id/StarttimeEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select Start Time"
+        android:background="@drawable/background_reference"
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:focusable="false" />
+
+    <EditText
+        android:id="@+id/CompletiontimeEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Completion Time"
+        android:background="@drawable/background_reference"
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:focusable="false" />
+
+    <!-- Action input -->
+    <EditText
+        android:id="@+id/actionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/background_reference"
+        android:padding="10dp"
+        android:inputType="textMultiLine"
+        android:hint="Enter Program" />
+
+    <!-- Add button -->
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFC107"
+        android:inputType="text"
+        android:drawableEnd="@drawable/baseline_add_24"
+        android:textStyle="bold"
+        android:text="Add Program" />
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="8dp"/>
+
+    <Button
+        android:id="@+id/previewButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00BCD4"
+        android:textStyle="bold"
+        android:inputType="text"
+        android:drawableEnd="@drawable/arrow_circle_right_24"
+        android:text="Proceed to Preview" />
+</LinearLayout>

@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blackgoose.fare_the_well.Adapters.UserEulogyAdapter;
 import com.blackgoose.fare_the_well.Models.EulogyModel;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -24,9 +23,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class UserPageActivity extends AppCompatActivity {
@@ -43,6 +47,7 @@ public class UserPageActivity extends AppCompatActivity {
     FirebaseStorage firebaseStorage;
     Context context;
     TextView textView;
+    List<EulogyModel> eulogyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,29 +55,25 @@ public class UserPageActivity extends AppCompatActivity {
         setContentView(R.layout.userpage_activity);
         logoutBtn = findViewById(R.id.logout_button);
         userEmail = findViewById(R.id.userEmail);
-        String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        recyclerView = findViewById(R.id.Usereulogylist);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         database = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         textView = findViewById(R.id.termsPrivacy);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
 
+        eulogyList = new ArrayList<>();
+        eulogyAdapter = new UserEulogyAdapter(this, eulogyList);
+        recyclerView.setAdapter(eulogyAdapter);
+        String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             userEmail.setText(currentUser.getEmail());
         }
-
-        recyclerView = (RecyclerView) findViewById(R.id.Usereulogylist);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        FirebaseRecyclerOptions<EulogyModel> options = new FirebaseRecyclerOptions.Builder<EulogyModel>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child("Eulogies").orderByChild("userUid").equalTo(userId), EulogyModel.class)
-                .build();
-
-        eulogyAdapter = new UserEulogyAdapter(options);
-        recyclerView.setAdapter(eulogyAdapter);
+        fetchUserEulogies(userId);
 
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -87,8 +88,52 @@ public class UserPageActivity extends AppCompatActivity {
                 signoutfarewell();
             }
 
-                });
+        });
 
+    }
+
+
+    private void fetchUserEulogies(String userId) {
+        database.getReference("Eulogies")
+                .orderByChild("userId")
+                .equalTo(userId)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        eulogyList.clear();
+                        for (DataSnapshot data : snapshot.getChildren()) {
+                            EulogyModel eulogy = data.getValue(EulogyModel.class);
+                            if (eulogy != null) {
+                                eulogy.setKey(data.getKey()); // Save the key
+
+                                // Check if imageUrls is stored incorrectly as a single String
+                                Object imageUrlsData = data.child("imageUrls").getValue();
+                                if (imageUrlsData instanceof String) {
+                                    // Convert single string URL to a list
+                                    List<String> correctedList = new ArrayList<>();
+                                    correctedList.add((String) imageUrlsData);
+                                    eulogy.setImageUrls(correctedList);
+                                } else if (imageUrlsData instanceof List) {
+                                    // Correct format, cast safely
+                                    eulogy.setImageUrls((List<String>) imageUrlsData);
+                                } else {
+                                    // If null or another type, set an empty list
+                                    eulogy.setImageUrls(new ArrayList<>());
+                                }
+
+                                eulogyList.add(eulogy);
+                            }
+                        }
+                        eulogyAdapter.notifyDataSetChanged();
+                    }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(UserPageActivity.this, "Failed to load data", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
     }
 
     private void signoutfarewell() {
@@ -109,17 +154,4 @@ public class UserPageActivity extends AppCompatActivity {
         });
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        recyclerView.getRecycledViewPool().clear();
-        eulogyAdapter.notifyDataSetChanged();
-        eulogyAdapter.startListening();
-    }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        eulogyAdapter.stopListening();
-            }
 }

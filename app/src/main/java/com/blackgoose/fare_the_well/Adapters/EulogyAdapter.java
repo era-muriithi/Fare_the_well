@@ -19,10 +19,16 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-public class EulogyAdapter extends FirebaseRecyclerAdapter<EulogyModel, EulogyAdapter.myViewHolder> {
+import java.util.ArrayList;
+import java.util.List;
 
-    public EulogyAdapter (FirebaseRecyclerOptions<EulogyModel> options) {
-        super(options);
+public class EulogyAdapter extends RecyclerView.Adapter<EulogyAdapter.myViewHolder> {
+    private Context context;
+    private List<EulogyModel> list;
+
+    public EulogyAdapter (Context context, List<EulogyModel> list) {
+        this.context = context;
+        this.list = list;
     }
     @NonNull
     public EulogyAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -31,43 +37,49 @@ public class EulogyAdapter extends FirebaseRecyclerAdapter<EulogyModel, EulogyAd
         return new myViewHolder(view);
     }
 
-    protected void onBindViewHolder(@NonNull EulogyAdapter.myViewHolder holder, int position, @NonNull EulogyModel model) {
-
-        holder.deceased_Fname.setText(model.getDeceasedFname());
-        holder.deceased_Sname.setText(model.getDeceasedSname());
-        holder.deceased_Lname.setText(model.getDeceasedLname());
+    @Override
+    public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
+        EulogyModel model = list.get(position);
+        holder.deceased_Fname.setText(model.getFirstName());
+        holder.deceased_Sname.setText(model.getSecondName());
+        holder.deceased_Lname.setText(model.getLastName());
         holder.deceased_dob.setText(model.getDateOfBirth());
-        holder.deceased_dod.setText(model.getDateOfDeath());
+        holder.deceased_dod.setText(model.getPassingOnDate());
 
-        Glide.with(holder.deceased_img.getContext())
-                .load(model.getDeceasedPicture())
-                .placeholder(R.drawable.person_24)
-                .error(R.drawable.person_24)
-                .into(holder.deceased_img);
+        if (model.getImageUrls() != null && !model.getImageUrls().isEmpty()) {
+            Glide.with(context).load(model.getImageUrls().get(0)).into(holder.deceased_img);
+        }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Context context = view.getContext();
                 Intent intent = new Intent(context, EulogyDetailsActivity.class);
-                intent.putExtra("deceasedImage", model.getDeceasedPicture());
-                intent.putExtra("deceasedFname", model.getDeceasedFname());
-                intent.putExtra("deceasedSname", model.getDeceasedSname());
-                intent.putExtra("deceasedLname", model.getDeceasedLname());
+
+                intent.putStringArrayListExtra("deceasedImage", new ArrayList<>(model.getImageUrls()));
+                intent.putExtra("deceasedFname", model.getFirstName());
+                intent.putExtra("deceasedSname", model.getSecondName());
+                intent.putExtra("deceasedLname", model.getLastName());
                 intent.putExtra( "deceaseDob", model.getDateOfBirth());
-                intent.putExtra("deceasedDod", model.getDateOfDeath());
+                intent.putExtra("deceasedDod", model.getPassingOnDate());
                 intent.putExtra("burialLocation", model.getBurialLocation());
-                intent.putExtra("deceasedEarlylife", model.getEarlylifeBiography());
-                intent.putExtra("deceasedEducation", model.getEducationBiography());
-                intent.putExtra("deceasedWork", model.getWorkBiography());
-                intent.putExtra("deceasedFamily", model.getFamilyBiography());
-                intent.putExtra("deceaseFinalMoments", model.getFinalMoments());
+                intent.putExtra("deceasedEarlylife", model.getEarly());
+                intent.putExtra("deceasedEducation", model.getEducation());
+                intent.putExtra("deceasedWork", model.getWork());
+                intent.putExtra("deceasedFamily", model.getFamily());
+                intent.putExtra("deceaseFinalMoments", model.getFinalMoment());
                 intent.putExtra("Key", model.getKey());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("eulogy", model);
                 context.startActivity(intent);
             }
         });
 
+    }
+
+    @Override
+    public int getItemCount() {
+        return list.size();
     }
 
     static class myViewHolder extends RecyclerView.ViewHolder {

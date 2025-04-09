@@ -9,12 +9,47 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/deceased_image"
+    <com.denzcoskun.imageslider.ImageSlider
+        android:id="@+id/add_images"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/gallery"
         android:scaleType="centerCrop"
-        android:src="@drawable/gallery"/>
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/select_images_button"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:padding="5dp"
+        android:background="#0C2232"
+        android:layout_gravity="end"
+        android:text="Select Images"
+        android:inputType="text"
+        android:drawableStart="@drawable/image_24"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_background"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Names"
+            android:layout_gravity="center"
+            android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/firstNameEditText"
@@ -58,6 +93,23 @@
         android:layout_margin="10dp"
         android:padding="10dp"/>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_background"
+        android:layout_margin="10dp"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dates"
+            android:layout_gravity="center"
+            android:textStyle="bold"/>
+
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/DateofBirthEditText"
         android:layout_width="match_parent"
@@ -65,6 +117,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/edittext_background"
         android:drawableEnd="@drawable/calendar"
         android:hint="Date of birth"
@@ -79,6 +132,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/edittext_background"
         android:drawableEnd="@drawable/calendar"
         android:hint="Pass on date"
@@ -86,19 +140,36 @@
         android:textColor="#272727"
         android:textColorHint="#8C8A8A" />
 
-    <EditText
-        android:id="@+id/burialLocationEditText"
+        <EditText
+            android:id="@+id/burialLocationEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_background"
+            android:hint="Burial Location"
+            android:inputType="textCapSentences"
+            android:textColor="#272727"
+            android:textStyle="bold"
+            android:textColorHint="#9D9C9C"
+            android:textSize="15sp"
+            android:layout_margin="10dp"
+            android:padding="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/edittext_background"
-        android:hint="Burial Location"
-        android:inputType="textCapSentences"
-        android:textColor="#272727"
-        android:textStyle="bold"
-        android:textColorHint="#9D9C9C"
-        android:textSize="15sp"
+        android:background="@drawable/layout_background"
         android:layout_margin="10dp"
-        android:padding="10dp"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Life History"
+            android:layout_gravity="center"
+            android:textStyle="bold"/>
+
+
 
     <EditText
         android:id="@+id/earlylife_biographyEditText"
@@ -171,6 +242,7 @@
         android:layout_margin="10dp"
         android:inputType="textMultiLine"
         android:padding="5dp"/>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -225,7 +297,7 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/upload_btn"
+        android:id="@+id/proceed_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -233,8 +305,8 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="#B68973"
-        android:text="upload"
-        android:drawableEnd="@drawable/cloud_upload"
+        android:text="Proceed"
+        android:drawableEnd="@drawable/arrow_circle_right_24"
         android:textColor="@color/white"
         android:textStyle="bold" />
 

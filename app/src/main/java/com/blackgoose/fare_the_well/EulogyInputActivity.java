@@ -1,5 +1,6 @@
 package com.blackgoose.fare_the_well;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -15,6 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.blackgoose.fare_the_well.Models.EulogyModel;
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,18 +27,24 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 public class EulogyInputActivity extends AppCompatActivity {
     EditText dateofbirth_date, passon_date, firstName, secondName, lastName, burialLocation, earlyLife, education, work, family, finalMoment, authorName, authorPhone;
     ImageView imageView;
-    int SELECT_PICTURE = 200;
+    private ArrayList<Uri> imageUris = new ArrayList<>();
+    private List<String> imageUrls;
+    private ImageSlider imageSlider;
     ProgressDialog progressDialog;
     Uri ImageUri;
-    Button upload_button;
+    Button upload_button, select_images_btn, add_program_button, proceed_button;
     FirebaseDatabase database;
     FirebaseStorage firebaseStorage;
+    private static final int PICK_IMAGES_REQUEST = 1;
+    private List<SlideModel> slideModels = new ArrayList<>();
     boolean isAllFieldsChecked = false;
 
     @Override
@@ -49,7 +59,10 @@ public class EulogyInputActivity extends AppCompatActivity {
         progressDialog.setTitle("Uploading");
         progressDialog.setCanceledOnTouchOutside(false);
 
-        imageView = findViewById(R.id.deceased_image);
+        imageUris = new ArrayList<>();
+        imageUrls = new ArrayList<>();
+
+        imageSlider = findViewById(R.id.add_images);
         dateofbirth_date = findViewById(R.id.DateofBirthEditText);
         passon_date = findViewById(R.id.passOnEditText);
         firstName = findViewById(R.id.firstNameEditText);
@@ -63,7 +76,8 @@ public class EulogyInputActivity extends AppCompatActivity {
         finalMoment = findViewById(R.id.final_biographyEditText);
         authorName = findViewById(R.id.authorNameEditText);
         authorPhone = findViewById(R.id.phoneEditText);
-        upload_button = findViewById(R.id.upload_btn);
+        select_images_btn = findViewById(R.id.select_images_button);
+        proceed_button = findViewById(R.id.proceed_btn);
 
         database = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
@@ -91,7 +105,7 @@ public class EulogyInputActivity extends AppCompatActivity {
             picker.show();
         });
 
-        imageView.setOnClickListener(new View.OnClickListener() {
+        select_images_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseImage();
@@ -118,18 +132,19 @@ public class EulogyInputActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     EulogyModel model = new EulogyModel();
-                                    model.setDeceasedPicture(uri.toString());
-                                    model.setDeceasedFname(Objects.requireNonNull(firstName.getText()).toString());
-                                    model.setDeceasedSname(Objects.requireNonNull(secondName.getText()).toString());
-                                    model.setDeceasedLname(Objects.requireNonNull(lastName.getText()).toString());
+
+                                    model.setImageUrls(imageUrls);
+                                    model.setFirstName(Objects.requireNonNull(firstName.getText()).toString());
+                                    model.setSecondName(Objects.requireNonNull(secondName.getText()).toString());
+                                    model.setLastName(Objects.requireNonNull(lastName.getText()).toString());
                                     model.setBurialLocation(Objects.requireNonNull(burialLocation.getText()).toString());
                                     model.setDateOfBirth(Objects.requireNonNull(dateofbirth_date.getText()).toString());
-                                    model.setDateOfDeath(Objects.requireNonNull(passon_date.getText()).toString());
-                                    model.setEarlylifeBiography(earlyLife.getText().toString());
-                                    model.setEducationBiography(education.getText().toString());
-                                    model.setWorkBiography(work.getText().toString());
-                                    model.setFamilyBiography(family.getText().toString());
-                                    model.setFinalMoments(finalMoment.getText().toString());
+                                    model.setPassingOnDate(Objects.requireNonNull(passon_date.getText()).toString());
+                                    model.setEarly(earlyLife.getText().toString());
+                                    model.setEducation(education.getText().toString());
+                                    model.setWork(work.getText().toString());
+                                    model.setFamily(family.getText().toString());
+                                    model.setFinalMoment(finalMoment.getText().toString());
                                     model.setAuthorContact(Integer.parseInt(String.valueOf(authorPhone.getText().toString())));
                                     model.setAuthorName(authorName.getText().toString());
                                     model.setUserUid(uid);
@@ -163,11 +178,56 @@ public class EulogyInputActivity extends AppCompatActivity {
 
         });
 
+        add_program_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openProgramActivity();
+            }
+        });
+
+        proceed_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                isAllFieldsChecked = CheckAllFields();
+                if (isAllFieldsChecked) {
+                    gotoProgramActivity();
+                }
+
+            }
+        });
+
 
     }
 
+    private void gotoProgramActivity() {
+        Intent intent = new Intent(this, ProgramSetActivity.class);
+        intent.putExtra("firstName", firstName.getText().toString());
+        intent.putExtra("secondName", secondName.getText().toString());
+        intent.putExtra("lastName", lastName.getText().toString());
+        intent.putExtra("dob", dateofbirth_date.getText().toString());
+        intent.putExtra("passingOn", passon_date.getText().toString());
+        intent.putExtra("burialLocation", burialLocation.getText().toString());
+        intent.putExtra("earlyLife", earlyLife.getText().toString());
+        intent.putExtra("education", education.getText().toString());
+        intent.putExtra("family", family.getText().toString());
+        intent.putExtra("work", work.getText().toString());
+        intent.putExtra("finalMoments", finalMoment.getText().toString());
+        intent.putExtra("userUid", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        intent.putExtra("authorName", authorName.getText().toString());
+        intent.putExtra("authorContact", authorPhone.getText().toString());
+        intent.putParcelableArrayListExtra("images", imageUris);
+        startActivity(intent);
+    }
+
+    private void openProgramActivity() {
+        Intent intent = new Intent(this, ProgramSetActivity.class);
+        startActivity(intent);
+    }
+
     private boolean CheckAllFields() {
-        if (ImageUri == null) {
+        if (imageUris == null) {
             Toast.makeText(EulogyInputActivity.this, "Select Image", Toast.LENGTH_LONG).show();
             return false;
         }
@@ -263,19 +323,30 @@ public class EulogyInputActivity extends AppCompatActivity {
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
-
-        startActivityForResult(Intent.createChooser(intent, "Select picture"), SELECT_PICTURE);
+        startActivityForResult(Intent.createChooser(intent, "Select Pictures"), PICK_IMAGES_REQUEST);
     }
     public void onActivityResult ( int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == SELECT_PICTURE && resultCode == RESULT_OK) {
+        if (requestCode == PICK_IMAGES_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            imageUris.clear();
+            slideModels.clear();
 
-            ImageUri = data.getData();
-
-            // update the preview image in the layout
-            imageView.setImageURI(ImageUri);
+            if (data.getClipData() != null) {
+                int count = data.getClipData().getItemCount();
+                for (int i = 0; i < count; i++) {
+                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                    imageUris.add(imageUri);
+                    slideModels.add(new SlideModel(imageUri.toString(), ScaleTypes.CENTER_CROP));
+                }
+            } else {
+                Uri imageUri = data.getData();
+                imageUris.add(imageUri);
+                slideModels.add(new SlideModel(imageUri.toString(), ScaleTypes.CENTER_CROP));
+            }
+            imageSlider.setImageList(slideModels);
         }
     }
 }

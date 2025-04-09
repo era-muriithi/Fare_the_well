@@ -1,26 +1,43 @@
 package com.blackgoose.fare_the_well;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.blackgoose.fare_the_well.Adapters.EulogyAdapter;
 import com.blackgoose.fare_the_well.Models.EulogyModel;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity{
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     EulogyAdapter eulogyAdapter;
+    private ArrayList<EulogyModel> eulogyList;
+    private ProgressBar progressBar;
+    List<EulogyModel> filteredEulogyList;
+    SearchView searchView;
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,51 +47,83 @@ public class MainActivity extends AppCompatActivity{
         // Getting reference of recyclerView
         recyclerView = (RecyclerView) findViewById(R.id.eulogylist);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-        FirebaseRecyclerOptions<EulogyModel> options = new FirebaseRecyclerOptions.Builder<EulogyModel>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child("Eulogies"), EulogyModel.class)
-                .build();
-
-        eulogyAdapter = new EulogyAdapter(options);
+        eulogyList = new ArrayList<>();
+        filteredEulogyList = new ArrayList<>();
+        eulogyAdapter = new EulogyAdapter(this, filteredEulogyList); // use filtered list
         recyclerView.setAdapter(eulogyAdapter);
-    }
+        database = FirebaseDatabase.getInstance();
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        recyclerView.getRecycledViewPool().clear();
-        eulogyAdapter.notifyDataSetChanged();
-        eulogyAdapter.startListening();
-    }
+        searchView = findViewById(R.id.searchView);
+        progressBar = findViewById(R.id.progressBar);
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        eulogyAdapter.stopListening();
-    }
+        fetchEulogies();
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        MenuItem item = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) item.getActionView();
-        assert searchView != null;
+        // Set up the search listener
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-                String ignore = query;
-                query.equalsIgnoreCase(ignore);
-                txtSearch(query);
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String query) {
-                txtSearch(query);
-                return false;
+            public boolean onQueryTextChange(String newText) {
+                filterEulogies(newText);
+                return true;
             }
         });
+    }
+
+
+    private void fetchEulogies() {
+
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+
+        database.getReference("Eulogies")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        eulogyList.clear();  // Clear existing list
+                        for (DataSnapshot data : snapshot.getChildren()) {
+                            EulogyModel eulogy = data.getValue(EulogyModel.class);
+                            if (eulogy != null) {
+                                eulogy.setKey(data.getKey());  // Save the key
+                                eulogyList.add(eulogy);
+                            }
+                        }
+                        // After fetching data, update the filtered list and notify the adapter
+                        filteredEulogyList.clear();
+                        filteredEulogyList.addAll(eulogyList);  // Add all eulogies initially
+                        eulogyAdapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(MainActivity.this, "Failed to load data", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
+    }
+
+    private void filterEulogies(String query) {
+        filteredEulogyList.clear();  // Clear the filtered list
+        if (query.isEmpty()) {
+            filteredEulogyList.addAll(eulogyList);  // If query is empty, show all eulogies
+        } else {
+            for (EulogyModel eulogy : eulogyList) {
+                if (eulogy.getFirstName().toLowerCase().contains(query.toLowerCase())) {
+                    filteredEulogyList.add(eulogy);  // If first name matches, add to filtered list
+                }
+            }
+        }
+        eulogyAdapter.notifyDataSetChanged();  // Notify the adapter to update the RecyclerView
+    }
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -115,15 +164,5 @@ public class MainActivity extends AppCompatActivity{
             startActivity(intent);
         }
     }
-
-    private void txtSearch(String str) {
-        FirebaseRecyclerOptions<EulogyModel> options = new FirebaseRecyclerOptions.Builder<EulogyModel>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child("Eulogies").orderByChild("deceasedFname").startAt(str).endAt(str + "\uf8ff"), EulogyModel.class)
-                .build();
-
-        eulogyAdapter = new EulogyAdapter(options);
-        eulogyAdapter.startListening();
-        recyclerView.setAdapter(eulogyAdapter);
-
-    }
 }
+

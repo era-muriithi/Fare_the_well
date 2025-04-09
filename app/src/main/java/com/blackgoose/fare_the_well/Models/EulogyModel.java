@@ -1,20 +1,25 @@
 package com.blackgoose.fare_the_well.Models;
 
-public class EulogyModel {
-    String deceasedPicture;
-    String earlylifeBiography;
+import java.io.Serializable;
+import java.util.List;
+
+public class EulogyModel implements Serializable {
+    private List<String> imageUrls;
+    private List<ProgramModel> funeralPrograms;
+    String early;
     String authorName;
     String burialLocation;
     String dateOfBirth;
-    String dateOfDeath;
-    String deceasedFname;
-    String deceasedLname;
-    String deceasedSname;
-    String educationBiography;
-    String familyBiography;
-    String finalMoments;
+    String passingOnDate;
+
+    String firstName;
+    String lastName;
+    String secondName;
+    String education;
+    String family;
+    String finalMoment;
     String userUid;
-    String workBiography;
+    String work;
 
     public String getKey() {
         return key;
@@ -31,38 +36,71 @@ public class EulogyModel {
 
     }
 
-    public EulogyModel(String deceasedPicture, String earlylifeBiography, String authorName, String burialLocation, String dateOfBirth, String dateOfDeath, String deceasedFname, String deceasedLname, String deceasedSname, String educationBiography, String familyBiography, String finalMoments, String userUid, String workBiography, int authorContact) {
-        this.deceasedPicture = deceasedPicture;
-        this.earlylifeBiography = earlylifeBiography;
+    public EulogyModel(List<String>imageUrls,List<ProgramModel>funeralPrograms, String early, String authorName, String burialLocation, String dateOfBirth, String passingOnDate, String firstName, String lastName, String secondName, String education, String family, String finalMoment, String userUid, String work, int authorContact) {
+        this.imageUrls = imageUrls;
+        this.funeralPrograms = funeralPrograms;
+        this.early = early;
         this.authorName = authorName;
         this.burialLocation = burialLocation;
         this.dateOfBirth = dateOfBirth;
-        this.dateOfDeath = dateOfDeath;
-        this.deceasedFname = deceasedFname;
-        this.deceasedLname = deceasedLname;
-        this.deceasedSname = deceasedSname;
-        this.educationBiography = educationBiography;
-        this.familyBiography = familyBiography;
-        this.finalMoments = finalMoments;
+        this.passingOnDate = passingOnDate;
+        this.secondName = secondName;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.education = education;
+        this.family = family;
+        this.finalMoment = finalMoment;
         this.userUid = userUid;
-        this.workBiography = workBiography;
+        this.work = work;
         this.authorContact = authorContact;
     }
 
-    public String getDeceasedPicture() {
-        return deceasedPicture;
+    public List<String> getImageUrls() {
+        return imageUrls;
     }
 
-    public void setDeceasedPicture(String deceasedPicture) {
-        this.deceasedPicture = deceasedPicture;
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
     }
 
-    public String getEarlylifeBiography() {
-        return earlylifeBiography;
+    public List<ProgramModel> getFuneralPrograms() {
+        return funeralPrograms;
     }
 
-    public void setEarlylifeBiography(String earlylifeBiography) {
-        this.earlylifeBiography = earlylifeBiography;
+    public void setFuneralPrograms(List<ProgramModel> funeralPrograms) {
+        this.funeralPrograms = funeralPrograms;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getPassingOnDate() {
+        return passingOnDate;
+    }
+
+    public void setPassingOnDate(String passingOnDate) {
+        this.passingOnDate = passingOnDate;
     }
 
     public String getAuthorName() {
@@ -89,62 +127,6 @@ public class EulogyModel {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getDateOfDeath() {
-        return dateOfDeath;
-    }
-
-    public void setDateOfDeath(String dateOfDeath) {
-        this.dateOfDeath = dateOfDeath;
-    }
-
-    public String getDeceasedFname() {
-        return deceasedFname;
-    }
-
-    public void setDeceasedFname(String deceasedFname) {
-        this.deceasedFname = deceasedFname;
-    }
-
-    public String getDeceasedLname() {
-        return deceasedLname;
-    }
-
-    public void setDeceasedLname(String deceasedLname) {
-        this.deceasedLname = deceasedLname;
-    }
-
-    public String getDeceasedSname() {
-        return deceasedSname;
-    }
-
-    public void setDeceasedSname(String deceasedSname) {
-        this.deceasedSname = deceasedSname;
-    }
-
-    public String getEducationBiography() {
-        return educationBiography;
-    }
-
-    public void setEducationBiography(String educationBiography) {
-        this.educationBiography = educationBiography;
-    }
-
-    public String getFamilyBiography() {
-        return familyBiography;
-    }
-
-    public void setFamilyBiography(String familyBiography) {
-        this.familyBiography = familyBiography;
-    }
-
-    public String getFinalMoments() {
-        return finalMoments;
-    }
-
-    public void setFinalMoments(String finalMoments) {
-        this.finalMoments = finalMoments;
-    }
-
     public String getUserUid() {
         return userUid;
     }
@@ -153,13 +135,6 @@ public class EulogyModel {
         this.userUid = userUid;
     }
 
-    public String getWorkBiography() {
-        return workBiography;
-    }
-
-    public void setWorkBiography(String workBiography) {
-        this.workBiography = workBiography;
-    }
 
     public int getAuthorContact() {
         return authorContact;
@@ -169,5 +144,43 @@ public class EulogyModel {
         this.authorContact = authorContact;
     }
 
+    public String getEarly() {
+        return early;
+    }
 
+    public void setEarly(String early) {
+        this.early = early;
+    }
+
+    public String getFinalMoment() {
+        return finalMoment;
+    }
+
+    public void setFinalMoment(String finalMoment) {
+        this.finalMoment = finalMoment;
+    }
+
+    public String getFamily() {
+        return family;
+    }
+
+    public void setFamily(String family) {
+        this.family = family;
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
+    public String getWork() {
+        return work;
+    }
+
+    public void setWork(String work) {
+        this.work = work;
+    }
 }
