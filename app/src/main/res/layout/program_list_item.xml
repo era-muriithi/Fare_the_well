@@ -74,8 +74,9 @@
                 android:text="Opening Prayers Got it! Here are some alternative terms you can use instead of end time:"
                 android:textColor="#2C2C2C"
                 android:lineHeight="20sp"
+                android:fontFamily="@font/poppinssemibold"
                 android:textSize="14sp"
-                android:textStyle="normal" />
+                 />
 
         </LinearLayout>
 

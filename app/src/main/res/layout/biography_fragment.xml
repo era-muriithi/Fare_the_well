@@ -14,7 +14,7 @@
         <com.smarteist.autoimageslider.SliderView
             android:id="@+id/imageSlider"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="350dp"
             android:layout_marginBottom="6dp" />
 
         <LinearLayout
@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/imageSlider"
+            android:layout_marginTop="7dp"
             android:layout_marginBottom="10dp"
             android:gravity="center_horizontal">
 
@@ -30,11 +31,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinssemibold"
                 android:paddingBottom="10dp"
                 android:text=""
                 android:textColor="#202020"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/deceased_Sname"
@@ -42,11 +43,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinssemibold"
                 android:paddingBottom="10dp"
                 android:text=""
                 android:textColor="#202020"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/deceased_Lname"
@@ -54,11 +55,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinssemibold"
                 android:paddingBottom="10dp"
                 android:text=""
                 android:textColor="#202020"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -79,7 +80,7 @@
                 android:text="12/12/2020"
                 android:textColor="#222222"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/poppinssemibold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -146,7 +147,7 @@
             android:text="@string/longText"
             android:textColor="#202020"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinssemibold" />
 
         <TextView
             android:id="@+id/educationTextText"
@@ -175,7 +176,7 @@
             android:text="@string/longText"
             android:textColor="#202020"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinssemibold" />
 
         <TextView
             android:id="@+id/familyText"
@@ -205,7 +206,7 @@
             android:text="@string/longText"
             android:textColor="#202020"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinssemibold" />
 
         <TextView
             android:id="@+id/workText"
@@ -235,7 +236,7 @@
             android:text="@string/longText"
             android:textColor="#202020"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinssemibold" />
 
         <TextView
             android:id="@+id/finalMoment_Text"
@@ -265,7 +266,7 @@
             android:text="@string/longText"
             android:textColor="#202020"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinssemibold" />
 
 
 
