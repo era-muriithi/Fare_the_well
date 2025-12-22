@@ -2,274 +2,162 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#03002e"
     android:padding="5dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        >
+        android:orientation="vertical"
+        android:background="#03002e">
 
-
-        <com.smarteist.autoimageslider.SliderView
-            android:id="@+id/imageSlider"
+        <!-- Main Image -->
+        <ImageView
+            android:id="@+id/detailMainImage"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_marginBottom="6dp" />
+            android:layout_height="220dp"
+            android:scaleType="centerCrop" />
 
+        <!-- Names -->
         <LinearLayout
-            android:id="@+id/deceased_names_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/imageSlider"
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="#03002e"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/deceased_Fname"
+                android:text="Mark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppinssemibold"
-                android:paddingBottom="10dp"
-                android:text=""
-                android:textColor="#202020"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/deceased_Sname"
+                android:text="were"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppinssemibold"
-                android:paddingBottom="10dp"
-                android:text=""
-                android:textColor="#202020"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/deceased_Lname"
                 android:layout_width="wrap_content"
+                android:text="Miha"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppinssemibold"
-                android:paddingBottom="10dp"
-                android:text=""
-                android:textColor="#202020"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
-
         </LinearLayout>
 
+        <!-- Dates -->
         <LinearLayout
             android:id="@+id/datesLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#03002e"
             android:gravity="center"
-            android:layout_below="@+id/deceased_names_layout"
-            >
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/deceased_born_dates"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="5dp"
-                android:text="12/12/2020"
-                android:textColor="#222222"
-                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 android:fontFamily="@font/poppinssemibold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                />
-
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp" />
 
             <TextView
                 android:id="@+id/decease_death_date"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:text="12/12/2020"
-                android:textColor="#292828"
-                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <!-- Burial Location -->
         <TextView
             android:id="@+id/burial_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/datesLayout"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
             android:drawableStart="@drawable/location_on"
-            android:text="Langata"
+            android:layout_marginBottom="10dp"
             android:textColor="#FF5722"
+            android:layout_gravity="center"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-
+        <!-- Eulogy Label -->
         <TextView
             android:id="@+id/earlylifeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/burial_location"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_vertical"
-            android:text="Early life"
+            android:text="Eulogy"
             android:textColor="#FF5722"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp" />
 
+        <!-- Eulogy Text -->
         <TextView
-            android:id="@+id/earlylife_biography"
-            android:background="@drawable/background_reference"
+            android:id="@+id/life_biography"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/earlylifeText"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
+            android:background="@drawable/background_reference"
             android:lineHeight="28sp"
             android:padding="10dp"
-            android:text="@string/longText"
-            android:textColor="#202020"
+            android:textColor="@color/white"
             android:textSize="14sp"
-            android:fontFamily="@font/poppinssemibold" />
+            android:fontFamily="@font/poppinssemibold"
+            android:layout_marginBottom="10dp" />
 
         <TextView
-            android:id="@+id/educationTextText"
+            android:id="@+id/pictures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/earlylife_biography"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="Education"
+            android:text="Life in pictures"
             android:textColor="#FF5722"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp" />
 
-        <TextView
-            android:id="@+id/education_biography"
-            android:background="@drawable/background_reference"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <com.blackgoose.fare_the_well.ExpandedGridviewAdapter
+            android:id="@+id/galleryGridView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/educationTextText"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:lineHeight="28sp"
-            android:padding="10dp"
-            android:text="@string/longText"
-            android:textColor="#202020"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppinssemibold" />
-
-        <TextView
-            android:id="@+id/familyText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/education_biography"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_vertical"
-            android:text="Family"
-            android:textColor="#FF5722"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/family_biography"
-            android:background="@drawable/background_reference"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/familyText"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:lineHeight="28sp"
-            android:padding="10dp"
-            android:text="@string/longText"
-            android:textColor="#202020"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppinssemibold" />
-
-        <TextView
-            android:id="@+id/workText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/family_biography"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_vertical"
-            android:text="Work"
-            android:textColor="#FF5722"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/work_biography"
-            android:background="@drawable/background_reference"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/workText"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:lineHeight="28sp"
-            android:padding="10dp"
-            android:text="@string/longText"
-            android:textColor="#202020"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppinssemibold" />
-
-        <TextView
-            android:id="@+id/finalMoment_Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/work_biography"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_vertical"
-            android:text="Final Moments"
-            android:textColor="#FF5722"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/final_biography"
-            android:background="@drawable/background_reference"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/finalMoment_Text"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:lineHeight="28sp"
-            android:padding="10dp"
-            android:text="@string/longText"
-            android:textColor="#202020"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppinssemibold" />
+            android:numColumns="3"
+            android:verticalSpacing="6dp"
+            android:horizontalSpacing="6dp"
+            android:stretchMode="columnWidth"
+            android:padding="8dp"
+            android:layout_marginBottom="15dp" />
 
 
+    </LinearLayout>
 
-
-    </RelativeLayout>
+    </LinearLayout>
 </ScrollView>

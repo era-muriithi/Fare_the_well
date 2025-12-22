@@ -15,6 +15,7 @@ Today, we come together to remember and celebrate the life of [Deceased\'s Name]
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="homeText">A warm and empathetic greeting, this app helps you create and share lasting tributes to honor your loved ones</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
@@ -32,5 +33,6 @@ Today, we come together to remember and celebrate the life of [Deceased\'s Name]
 
     </string>
     <string name="privacyTerms"><a href="https://docs.google.com/document/d/1sgHQHA-U33cbjYM7uybh4nyao8Map13r_-0I0gmw1wA">Terms of Service and privacy policy</a></string>
-    <string name="developedby">Developed and maintained by Guul88</string>
+    <string name="developedby">Developed and maintained by Olympus Code</string>
+    <string name="signinText">By siging up in Farewell you agree with our terms and privacy policy </string>
 </resources>

@@ -2,155 +2,127 @@ package com.blackgoose.fare_the_well.Adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.blackgoose.fare_the_well.Models.EulogyModel;
 import com.blackgoose.fare_the_well.R;
-import com.blackgoose.fare_the_well.UserEulogyDetailActivity;
+import com.blackgoose.fare_the_well.UserEulogyDetailsActivity;
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class UserEulogyAdapter extends RecyclerView.Adapter<UserEulogyAdapter.myViewHolder> {
+import de.hdodenhof.circleimageview.CircleImageView;
+import com.google.firebase.database.FirebaseDatabase;
+
+public class UserEulogyAdapter extends RecyclerView.Adapter<UserEulogyAdapter.ViewHolder> {
+
     private Context context;
-    private List<EulogyModel> list;
-    ProgressBar progressBar;
+    private ArrayList<EulogyModel> eulogies;
 
-    public UserEulogyAdapter (Context context, List<EulogyModel> list) {
+    public UserEulogyAdapter(Context context, ArrayList<EulogyModel> eulogies) {
         this.context = context;
-        this.list = list;
+        this.eulogies = eulogies;
     }
 
     @NonNull
-    public UserEulogyAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_eulogy_custom_item,parent, false);
-        return new myViewHolder(view);
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.user_eulogy_custom_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        EulogyModel model = list.get(position);
-        holder.deceased_Fname.setText(model.getFirstName());
-        holder.deceased_Sname.setText(model.getSecondName());
-        holder.deceased_Lname.setText(model.getLastName());
-        holder.deceased_dob.setText(model.getDateOfBirth());
-        holder.deceased_dod.setText(model.getPassingOnDate());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        EulogyModel model = eulogies.get(position);
 
-        if (model.getImageUrls() != null && !model.getImageUrls().isEmpty()) {
-            Glide.with(context).load(model.getImageUrls().get(0)).into(holder.deceased_img);
+        // Load main image
+        if (model.mainImageUrl != null && !model.mainImageUrl.isEmpty()) {
+            Glide.with(context)
+                    .load(model.mainImageUrl)
+                    .placeholder(R.drawable.gallery)
+                    .into(holder.img);
         }
-        DatabaseReference eulogiesRef = FirebaseDatabase.getInstance().getReference().child("Eulogies");
 
+        // Names
+        holder.Fname.setText(model.firstName != null ? model.firstName : "");
+        holder.Sname.setText(model.secondName != null ? model.secondName : "");
+        holder.Lname.setText(model.lastName != null ? model.lastName : "");
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context context = view.getContext();
-                Intent intent = new Intent(context, UserEulogyDetailActivity.class);
-                intent.putStringArrayListExtra("deceasedImage", new ArrayList<>(model.getImageUrls()));
-                intent.putExtra("deceasedFname", model.getFirstName());
-                intent.putExtra("deceasedSname", model.getSecondName());
-                intent.putExtra("deceasedLname", model.getLastName());
-                intent.putExtra( "deceaseDob", model.getDateOfBirth());
-                intent.putExtra("deceasedDod", model.getPassingOnDate());
-                intent.putExtra("burialLocation", model.getBurialLocation());
-                intent.putExtra("deceasedEarlylife", model.getEarly());
-                intent.putExtra("deceasedEducation", model.getEducation());
-                intent.putExtra("deceasedWork", model.getWork());
-                intent.putExtra("deceasedFamily", model.getFamily());
-                intent.putExtra("deceaseFinalMoments", model.getFinalMoment());
-                intent.putExtra("Key", model.getKey());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
+        // Dates
+        holder.born_dates.setText(model.birthYear != null ? model.birthYear : "-");
+        holder.death_date.setText(model.passingYear != null ? model.passingYear : "-");
+
+        // Status
+        holder.status.setText(model.status);
+
+        // Delete button
+        holder.deleteBtn.setOnClickListener(v -> {
+
+            if (model.Eulogyid == null) {
+                Toast.makeText(context, "Invalid eulogy ID", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            new AlertDialog.Builder(context)
+                    .setTitle("Delete Eulogy")
+                    .setMessage("Are you sure you want to permanently delete this eulogy? This action cannot be undone.")
+                    .setCancelable(true)
+                    .setPositiveButton("Delete", (dialog, which) -> {
+
+                        FirebaseDatabase.getInstance()
+                                .getReference("Eulogies")
+                                .child(model.Eulogyid)
+                                .removeValue()
+                                .addOnSuccessListener(aVoid ->
+                                        Toast.makeText(context, "Eulogy deleted", Toast.LENGTH_SHORT).show()
+                                )
+                                .addOnFailureListener(e ->
+                                        Toast.makeText(context, "Failed to delete: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                                );
+
+                    })
+                    .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                    .show();
         });
 
-        holder.delete.setOnClickListener(new View.OnClickListener() {
-            String eulogyKey = model.getKey();
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(holder.deceased_Fname.getContext());
-                builder.setTitle("Are you sure?");
-                builder.setMessage("Deleted data can't be undone");
 
-                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (eulogyKey != null) {
-                            eulogiesRef.child(eulogyKey).removeValue()
-                                    .addOnSuccessListener(aVoid ->
-                                            Toast.makeText(context, "Eulogy deleted successfully", Toast.LENGTH_SHORT).show())
-                                    .addOnFailureListener(e ->
-                                            Toast.makeText(context, "Failed to delete: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-                        } else {
-                            Toast.makeText(context, "Error: Eulogy key not found", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(holder.deceased_Fname.getContext(), "Cancelled", Toast.LENGTH_LONG).show();
-                    }
-                });
-                builder.show();
-            }
+        // Click item to view details
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, UserEulogyDetailsActivity.class);
+            intent.putExtra("eulogy", model); // EulogyModel implements Serializable
+            context.startActivity(intent);
         });
-
     }
+
     @Override
     public int getItemCount() {
-        return list.size();
+        return eulogies.size();
     }
 
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        CircleImageView img;
+        TextView Fname, Sname, Lname, born_dates, death_date, status;
+        AppCompatButton deleteBtn;
 
-    static class myViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView deceased_img;
-        Button delete;
-        TextView deceased_Fname, deceased_Sname, deceased_Lname, deceased_dob, deceased_dod, burial_location, deceased_earlyLife, deceased_education, deceased_work, deceased_family, deceased_finalMoments;
-
-        CardView cardView;
-        public myViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            deceased_img = itemView.findViewById(R.id.img);
-            deceased_Fname = itemView.findViewById(R.id.Fname);
-            deceased_Sname = itemView.findViewById(R.id.Sname);
-            deceased_Lname = itemView.findViewById(R.id.Lname);
-            deceased_dob = itemView.findViewById(R.id.born_dates);
-            deceased_dod = itemView.findViewById(R.id.death_date);
-            burial_location = itemView.findViewById(R.id.burial_location);
-            deceased_earlyLife = itemView.findViewById(R.id.earlylife_biography);
-            deceased_education = itemView.findViewById(R.id.education_biography);
-            deceased_work = itemView.findViewById(R.id.work_biography);
-            deceased_family = itemView.findViewById(R.id.family_biography);
-            deceased_finalMoments = itemView.findViewById(R.id.final_biography);
-            delete = itemView.findViewById(R.id.delete_btn);
-            cardView =itemView.findViewById(R.id.listCard);
-
+            img = itemView.findViewById(R.id.img);
+            Fname = itemView.findViewById(R.id.Fname);
+            Sname = itemView.findViewById(R.id.Sname);
+            Lname = itemView.findViewById(R.id.Lname);
+            born_dates = itemView.findViewById(R.id.born_dates);
+            death_date = itemView.findViewById(R.id.death_date);
+            status = itemView.findViewById(R.id.status);
+            deleteBtn = itemView.findViewById(R.id.delete_btn);
         }
     }
-    public void onDataChanged() {
-        if (progressBar != null) {
-            progressBar.setVisibility(View.GONE);
-        }
-    }
-
 }
-

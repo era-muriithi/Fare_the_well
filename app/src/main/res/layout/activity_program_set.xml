@@ -20,17 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Select Start Time"
-        android:background="@drawable/background_reference"
-        android:padding="10dp"
-        android:layout_margin="5dp"
-        android:focusable="false" />
-
-    <EditText
-        android:id="@+id/CompletiontimeEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Completion Time"
-        android:background="@drawable/background_reference"
+        android:background="@drawable/search_bg"
         android:padding="10dp"
         android:layout_margin="5dp"
         android:focusable="false" />
@@ -41,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="@drawable/background_reference"
+        android:background="@drawable/search_bg"
         android:padding="10dp"
         android:inputType="textMultiLine"
         android:hint="Enter Program" />

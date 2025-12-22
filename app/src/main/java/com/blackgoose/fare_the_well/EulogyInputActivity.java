@@ -1,279 +1,195 @@
 package com.blackgoose.fare_the_well;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.blackgoose.fare_the_well.Models.EulogyModel;
-import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-import com.denzcoskun.imageslider.models.SlideModel;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.blackgoose.fare_the_well.Adapters.ImagesPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
 
 public class EulogyInputActivity extends AppCompatActivity {
-    EditText dateofbirth_date, passon_date, firstName, secondName, lastName, burialLocation, earlyLife, education, work, family, finalMoment, authorName, authorPhone;
-    ImageView imageView;
-    private ArrayList<Uri> imageUris = new ArrayList<>();
-    private List<String> imageUrls;
-    private ImageSlider imageSlider;
-    ProgressDialog progressDialog;
-    Uri ImageUri;
-    Button upload_button, select_images_btn, add_program_button, proceed_button;
-    FirebaseDatabase database;
-    FirebaseStorage firebaseStorage;
-    private static final int PICK_IMAGES_REQUEST = 1;
-    private List<SlideModel> slideModels = new ArrayList<>();
-    boolean isAllFieldsChecked = false;
+
+    ImageView imgMain;
+    EditText edtFirstName, edtSecondName, edtLastName, edtBurialLocation;
+    EditText edtBirthYear, edtPassingYear, edtEulogy;
+    EditText edtAuthorName, edtAuthorPhone;
+    ViewPager2 viewPagerImages;
+    Button btnProceed;
+
+    Uri mainImageUri;
+    List<Uri> galleryUris = new ArrayList<>();
+    ImagesPagerAdapter pagerAdapter;
+
+    Button btnPickMainImage, btnPickGalleryImages;
+
+    ActivityResultLauncher<Intent> mainImagePicker;
+    ActivityResultLauncher<Intent> galleryImagePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.eulogy_input_activity);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage("Please wait...");
-        progressDialog.setCancelable(false);
-        progressDialog.setTitle("Uploading");
-        progressDialog.setCanceledOnTouchOutside(false);
+        imgMain = findViewById(R.id.add_image);
+        edtFirstName = findViewById(R.id.firstNameEditText);
+        edtSecondName = findViewById(R.id.secondNameEditText);
+        edtLastName = findViewById(R.id.lastNameEditText);
+        edtBurialLocation = findViewById(R.id.burialLocationEditText);
+        edtBirthYear = findViewById(R.id.DateofBirthEditText);
+        edtPassingYear = findViewById(R.id.passOnEditText);
+        edtEulogy = findViewById(R.id.lifeBiography);
+        edtAuthorName = findViewById(R.id.authorNameEditText);
+        edtAuthorPhone = findViewById(R.id.phoneEditText);
+        viewPagerImages = findViewById(R.id.viewPager);
+        btnProceed = findViewById(R.id.proceed_btn);
+        btnPickMainImage = findViewById(R.id.select_image_button);
+        btnPickGalleryImages = findViewById(R.id.select_images_button);
 
-        imageUris = new ArrayList<>();
-        imageUrls = new ArrayList<>();
+        // ViewPager Adapter
+        pagerAdapter = new ImagesPagerAdapter(this, galleryUris);
+        viewPagerImages.setAdapter(pagerAdapter);
 
-        imageSlider = findViewById(R.id.add_images);
-        dateofbirth_date = findViewById(R.id.DateofBirthEditText);
-        passon_date = findViewById(R.id.passOnEditText);
-        firstName = findViewById(R.id.firstNameEditText);
-        secondName = findViewById(R.id.secondNameEditText);
-        lastName = findViewById(R.id.lastNameEditText);
-        burialLocation = findViewById(R.id.burialLocationEditText);
-        earlyLife = findViewById(R.id.earlylife_biographyEditText);
-        education = findViewById(R.id.education_biographyEditText);
-        work = findViewById(R.id.work_biographyEditText);
-        family = findViewById(R.id.family_biographyEditText);
-        finalMoment = findViewById(R.id.final_biographyEditText);
-        authorName = findViewById(R.id.authorNameEditText);
-        authorPhone = findViewById(R.id.phoneEditText);
-        select_images_btn = findViewById(R.id.select_images_button);
-        proceed_button = findViewById(R.id.proceed_btn);
+        // ---- Pick MAIN Image ----
+        mainImagePicker = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        mainImageUri = result.getData().getData();
+                        imgMain.setImageURI(mainImageUri);
+                    }
+                });
 
-        database = FirebaseDatabase.getInstance();
-        firebaseStorage = FirebaseStorage.getInstance();
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        dateofbirth_date.setOnClickListener(v -> {
-            final Calendar mCalendar = Calendar.getInstance();
-            int day = mCalendar.get(Calendar.DAY_OF_MONTH);
-            int month = mCalendar.get(Calendar.MONTH);
-            int year = mCalendar.get(Calendar.YEAR);
-            DatePickerDialog picker = new DatePickerDialog(EulogyInputActivity.this,
-                    (view, year1, monthOfYear, dayOfMonth) -> dateofbirth_date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1), year, month, day);
-            picker.getDatePicker();
-            picker.show();
+        btnPickMainImage.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            mainImagePicker.launch(intent);
         });
 
-        passon_date.setOnClickListener(v -> {
-            final Calendar mCalendar = Calendar.getInstance();
-            int day = mCalendar.get(Calendar.DAY_OF_MONTH);
-            int month = mCalendar.get(Calendar.MONTH);
-            int year = mCalendar.get(Calendar.YEAR);
-            DatePickerDialog picker = new DatePickerDialog(EulogyInputActivity.this,
-                    (view, year1, monthOfYear, dayOfMonth) -> passon_date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1), year, month, day);
-            picker.getDatePicker();
-            picker.show();
+        // ---- Pick MULTIPLE Images ----
+        galleryImagePicker = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        galleryUris.clear();
+
+                        if (result.getData().getClipData() != null) {
+                            int count = result.getData().getClipData().getItemCount();
+                            for (int i = 0; i < count; i++) {
+                                Uri uri = result.getData().getClipData().getItemAt(i).getUri();
+                                galleryUris.add(uri);
+                            }
+                        } else {
+                            galleryUris.add(result.getData().getData());
+                        }
+                        pagerAdapter.notifyDataSetChanged();
+                    }
+                });
+
+        btnPickGalleryImages.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            intent.setType("image/*");
+            galleryImagePicker.launch(intent);
         });
 
-        select_images_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chooseImage();
-            }
-        });
+        // ---- YEAR PICKER for Birth Year ----
+        edtBirthYear.setOnClickListener(v -> showYearPicker(edtBirthYear));
 
-        proceed_button.setOnClickListener(new View.OnClickListener() {
+        // ---- YEAR PICKER for Passing Year ----
+        edtPassingYear.setOnClickListener(v -> showYearPicker(edtPassingYear));
 
-            @Override
-            public void onClick(View view) {
-                isAllFieldsChecked = CheckAllFields();
-                if (isAllFieldsChecked) {
-                    gotoProgramActivity();
-                }
-
-            }
-        });
-
+        btnProceed.setOnClickListener(v -> proceedToNext());
 
     }
 
-    private void gotoProgramActivity() {
-        Intent intent = new Intent(this, ProgramSetActivity.class);
-        intent.putExtra("firstName", firstName.getText().toString());
-        intent.putExtra("secondName", secondName.getText().toString());
-        intent.putExtra("lastName", lastName.getText().toString());
-        intent.putExtra("dob", dateofbirth_date.getText().toString());
-        intent.putExtra("passingOn", passon_date.getText().toString());
-        intent.putExtra("burialLocation", burialLocation.getText().toString());
-        intent.putExtra("earlyLife", earlyLife.getText().toString());
-        intent.putExtra("education", education.getText().toString());
-        intent.putExtra("family", family.getText().toString());
-        intent.putExtra("work", work.getText().toString());
-        intent.putExtra("finalMoments", finalMoment.getText().toString());
-        intent.putExtra("userUid", FirebaseAuth.getInstance().getCurrentUser().getUid());
+    private void showYearPicker(EditText target) {
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
 
-        intent.putExtra("authorName", authorName.getText().toString());
-        intent.putExtra("authorContact", authorPhone.getText().toString());
-        intent.putParcelableArrayListExtra("images", imageUris);
+        NumberPicker yearPicker = new NumberPicker(this);
+        yearPicker.setMinValue(1900);
+        yearPicker.setMaxValue(currentYear);
+        yearPicker.setValue(currentYear);
+        yearPicker.setWrapSelectorWheel(false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select Year");
+        builder.setView(yearPicker);
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            target.setText(String.valueOf(yearPicker.getValue()));
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+        builder.show();
+    }
+
+
+    private void proceedToNext() {
+
+        if (mainImageUri == null) {
+            Toast.makeText(this, "Please select a main image", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (galleryUris.isEmpty()) {
+            Toast.makeText(this, "Please select gallery images", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Collect all data from EditTexts
+        String firstName = edtFirstName.getText().toString().trim();
+        String secondName = edtSecondName.getText().toString().trim();
+        String lastName = edtLastName.getText().toString().trim();
+        String burialLocation = edtBurialLocation.getText().toString().trim();
+        String birthYear = edtBirthYear.getText().toString().trim();
+        String passingYear = edtPassingYear.getText().toString().trim();
+        String eulogyText = edtEulogy.getText().toString().trim();
+        String authorName = edtAuthorName.getText().toString().trim();
+        String authorPhone = edtAuthorPhone.getText().toString().trim();
+
+        // Convert Uri list to Strings for the Intent
+        ArrayList<String> galleryImageStrings = new ArrayList<>();
+        for (Uri uri : galleryUris) {
+            galleryImageStrings.add(uri.toString());
+        }
+
+        // Send to next activity
+        Intent intent = new Intent(EulogyInputActivity.this, ProgramSetActivity.class);
+
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("secondName", secondName);
+        intent.putExtra("lastName", lastName);
+        intent.putExtra("burialLocation", burialLocation);
+        intent.putExtra("birthYear", birthYear);
+        intent.putExtra("passingYear", passingYear);
+        intent.putExtra("eulogyText", eulogyText);
+        intent.putExtra("authorName", authorName);
+        intent.putExtra("authorPhone", authorPhone);
+
+        intent.putExtra("mainImageUri", mainImageUri.toString());
+        intent.putStringArrayListExtra("galleryImages", galleryImageStrings);
+
         startActivity(intent);
     }
 
-    private void openProgramActivity() {
-        Intent intent = new Intent(this, ProgramSetActivity.class);
-        startActivity(intent);
-    }
-
-    private boolean CheckAllFields() {
-        if (imageUris == null) {
-            Toast.makeText(EulogyInputActivity.this, "Select Image", Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        if (dateofbirth_date.length() == 0) {
-            Toast.makeText(EulogyInputActivity.this, "Input date of birth", Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        if (passon_date.length() == 0) {
-            Toast.makeText(EulogyInputActivity.this, "Input pass on date", Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        if (firstName.length() == 0) {
-            Toast.makeText(EulogyInputActivity.this, "Enter First name", Toast.LENGTH_LONG).show();
-            return false;
-        }
-        if (secondName.length() == 0) {
-            Toast.makeText(EulogyInputActivity.this, "Enter second name", Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-            if (lastName.length() == 0) {
-                Toast.makeText(EulogyInputActivity.this, "Enter last name", Toast.LENGTH_LONG).show();
-                return false;
-            }
-
-                if (burialLocation.length() == 0) {
-                    Toast.makeText(EulogyInputActivity.this, "Enter burial location", Toast.LENGTH_LONG).show();
-                    return false;
-                }
-                if (earlyLife.length() == 0) {
-                    Toast.makeText(EulogyInputActivity.this, "Enter early life biography", Toast.LENGTH_LONG).show();
-                    return false;
-                }
-
-                if (education.length() == 0) {
-                    Toast.makeText(EulogyInputActivity.this, "Enter education biography", Toast.LENGTH_LONG).show();
-                    return false;
-                }
-
-                if (family.length() == 0) {
-                    Toast.makeText(EulogyInputActivity.this, "Enter family biography", Toast.LENGTH_LONG).show();
-                    return false;
-                }
-
-                if (work.length() == 0) {
-                    Toast.makeText(EulogyInputActivity.this, "Enter work biography", Toast.LENGTH_LONG).show();
-                    return false;
-                }
-                if (finalMoment.length() == 0) {
-                    Toast.makeText(EulogyInputActivity.this, "Enter final moments biography", Toast.LENGTH_LONG).show();
-                    return false;
-                }
-                if (authorName.length() == 0) {
-                    Toast.makeText(EulogyInputActivity.this, "Enter author name", Toast.LENGTH_LONG).show();
-                    return false;
-
-        } else if (authorPhone.length() < 10 || authorPhone.length() > 10) {
-            Toast.makeText(EulogyInputActivity.this, "Enter valid phone number", Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        // after all validation return true.
-        return true;
-    }
-
-
-    private void resetInputstoNull() {
-        imageView.setImageURI(null);
-        dateofbirth_date.setText(null);
-        passon_date.setText(null);
-        firstName.setText(null);
-        secondName.setText(null);
-        lastName.setText(null);
-        burialLocation.setText(null);
-        earlyLife.setText(null);
-        work.setText(null);
-        family.setText(null);
-        education.setText(null);
-        finalMoment.setText(null);
-        authorName.setText(null);
-        authorPhone.setText(null);
-    }
-
-    private void openUserProfile() {
-
-            Intent intent = new Intent(this, UserPageActivity.class);
-            startActivity(intent);
-    }
-
-    private void chooseImage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Pictures"), PICK_IMAGES_REQUEST);
-    }
-    public void onActivityResult ( int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGES_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            imageUris.clear();
-            slideModels.clear();
-
-            if (data.getClipData() != null) {
-                int count = data.getClipData().getItemCount();
-                for (int i = 0; i < count; i++) {
-                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
-                    imageUris.add(imageUri);
-                    slideModels.add(new SlideModel(imageUri.toString(), ScaleTypes.CENTER_CROP));
-                }
-            } else {
-                Uri imageUri = data.getData();
-                imageUris.add(imageUri);
-                slideModels.add(new SlideModel(imageUri.toString(), ScaleTypes.CENTER_CROP));
-            }
-            imageSlider.setImageList(slideModels);
-        }
-    }
 }

@@ -9,9 +9,9 @@
         </shape>
     </item>
     <!-- White foreground. -->
-    <item android:bottom="1dp">
+    <item android:bottom="3dp">
         <shape>
-            <solid android:color="#03002e" />
+            <solid android:color="@color/white" />
             <corners android:radius="10dp" />
         </shape>
     </item>

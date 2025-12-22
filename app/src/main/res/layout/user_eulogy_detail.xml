@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    >
-    <RelativeLayout
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        >
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/id_eulogy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textStyle="bold"/>
 
         <ImageView
             android:id="@+id/deceased_image"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:scaleType="centerCrop"
-            />
+            android:layout_height="300dp" />
 
         <LinearLayout
             android:id="@+id/deceased_names_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/deceased_image"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
             android:gravity="center_horizontal">
 
             <TextView
@@ -34,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:paddingBottom="10dp"
-                android:text=""
+                android:text="Maina"
                 android:textColor="#202020"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -46,7 +49,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:paddingBottom="10dp"
-                android:text=""
+                android:text="Njenya"
                 android:textColor="#202020"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -58,76 +61,87 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:paddingBottom="10dp"
-                android:text=""
+                android:text="Nduno"
                 android:textColor="#202020"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/datesLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:layout_below="@+id/deceased_names_layout"
-            >
-
-            <TextView
-                android:id="@+id/deceased_born_dates"
+            <ImageButton
+                android:id="@+id/btnShare"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="5dp"
-                android:text=""
-                android:textColor="#222222"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                 />
 
 
-            <TextView
-                android:id="@+id/decease_death_date"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:text=""
-                android:textColor="#292828"
-                android:textSize="18sp"
-                android:textStyle="bold" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/burial_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/datesLayout"
-            android:layout_centerInParent="true"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:drawableStart="@drawable/location_on"
-            android:text=""
+            android:layout_marginBottom="3dp"
+            android:text="China"
+            android:layout_gravity="center"
             android:textColor="#FF5722"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/location_on" />
 
+
+        <LinearLayout
+            android:id="@+id/datesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/deceased_dob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="5dp"
+                android:text="01/02/1945"
+                android:textColor="#222222"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textColor="@color/black"
+                android:textSize="50sp" />
+
+
+            <TextView
+                android:id="@+id/deceased_passing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="30/12/2020"
+                android:textColor="#292828"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
         <TextView
             android:id="@+id/earlylifeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/burial_location"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:gravity="center_vertical"
-            android:text="Early life"
+            android:text="Eulogy"
             android:textColor="#FF5722"
             android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/earlylife_biography"
+            android:id="@+id/life_biography"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/earlylifeText"
@@ -141,120 +155,82 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+
+
         <TextView
-            android:id="@+id/educationTextText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/earlylife_biography"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="Education"
+            android:text="Funeral Progam"
             android:textColor="#FF5722"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/education_biography"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reviewProgramsRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/educationTextText"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:lineHeight="28sp"
-            android:padding="10dp"
-            android:text=""
-            android:textColor="#202020"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:background="@drawable/layout_background"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/familyText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/education_biography"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_vertical"
-            android:text="Family"
-            android:textColor="#FF5722"
-            android:textSize="14sp"
-            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/family_biography"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/familyText"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:lineHeight="28sp"
-            android:padding="10dp"
-            android:text=""
-            android:textColor="#202020"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/text_string"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/only_visible_to_farewell"
+                android:layout_gravity="center"
+                />
 
-        <TextView
-            android:id="@+id/workText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/family_biography"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_vertical"
-            android:text="Work"
-            android:textColor="#FF5722"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/author_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_string"
+                android:text="Author"
+                android:padding="5dp"
+                android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/work_biography"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/workText"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:lineHeight="28sp"
-            android:padding="10dp"
-            android:text=""
-            android:textColor="#202020"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/author_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/author_name"
+                android:text="0712123123"
+                android:padding="10dp"
+                android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/finalMoment_Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/work_biography"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_vertical"
-            android:text="Final Moments"
-            android:textColor="#FF5722"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_string"
+                android:layout_toLeftOf="@+id/status"
+                android:text="Status:"
+                android:padding="5dp"
+                android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/final_biography"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/finalMoment_Text"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:lineHeight="28sp"
-            android:padding="10dp"
-            android:text=""
-            android:textColor="#202020"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_string"
+                android:layout_alignParentEnd="true"
+                android:text="Unconfirmed"
+                android:textColor="#FF5722"
+                android:padding="5dp"
+                android:textStyle="bold"/>
 
-    </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
 </ScrollView>

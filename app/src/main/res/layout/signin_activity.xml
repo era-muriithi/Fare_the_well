@@ -19,6 +19,40 @@
             android:textSize="20sp"
             android:textStyle="bold"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signinText"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:textColor="#232323"
+            android:textSize="12sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+
+            <CheckBox android:id="@+id/checkbox_privacy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                />
+
+        <TextView
+            android:id="@+id/termsPrivacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/privacyTerms"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="#040C3C"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            >
+        </TextView>
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,6 +60,9 @@
             android:text="Sign in with Google"
             android:layout_marginStart="20dp"
             android:layout_marginTop="50dp"
+            android:fontFamily="@font/poppinssemibold"
+            android:textColor="#FF5722"
+            android:layout_gravity="center"
             android:textStyle="bold"/>
 
 
@@ -45,15 +82,5 @@
             />
 
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/logout_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Logout"
-            android:layout_marginTop="50dp"
-            android:background="#FF0000"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
     </LinearLayout>
 </ScrollView>

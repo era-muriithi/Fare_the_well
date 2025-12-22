@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Image First -->
+    <ImageView
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/iris" />
+
+    <!-- Text OVER the image -->
+    <TextView
+        android:id="@+id/fullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppinssemibold"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:textSize="20sp" />
+
+
+    <!-- Recycler below image -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerPrograms"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/banner"
         android:padding="12dp" />
-</FrameLayout>
+</RelativeLayout>

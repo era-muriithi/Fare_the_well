@@ -7,47 +7,40 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.blackgoose.fare_the_well.Models.ProgramModel;
 import com.blackgoose.fare_the_well.R;
 
 import java.util.List;
 
-public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.TaskViewHolder> {
+public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.VH> {
 
-    private List<ProgramModel> programList;
+    private List<ProgramModel> list;
 
-    public ProgramAdapter(List<ProgramModel> programList) {
-        this.programList = programList;
-    }
+    public ProgramAdapter(List<ProgramModel> list) { this.list = list; }
+
     @NonNull
     @Override
-    public ProgramAdapter.TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.program_list_item, parent, false);
-        return new TaskViewHolder(view);
+    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.program_fragment_lit_item, parent, false);
+        return new VH(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
-        ProgramModel programModel = programList.get(position);
-        holder.start_time.setText(programModel.getStarttime());
-        holder.completion_time.setText(programModel.getCompletiontime());
-        holder.action.setText(programModel.getAction());
+    public void onBindViewHolder(@NonNull VH holder, int position) {
+        ProgramModel m = list.get(position);
+        holder.time.setText(m.getStartTime());
+        holder.action.setText(m.getAction());
     }
 
     @Override
-    public int getItemCount() {
-        return programList.size();
-    }
-    public static class TaskViewHolder extends RecyclerView.ViewHolder {
-        TextView start_time,completion_time, action;
+    public int getItemCount() { return list == null ? 0 : list.size(); }
 
-        public TaskViewHolder(@NonNull View itemView) {
+    static class VH extends RecyclerView.ViewHolder {
+        TextView time, action;
+        VH(@NonNull View itemView) {
             super(itemView);
-            start_time = itemView.findViewById(R.id.startTime);
-            completion_time = itemView.findViewById(R.id.completionTime);
+            time = itemView.findViewById(R.id.startTime);
             action = itemView.findViewById(R.id.action);
         }
     }
 }
-

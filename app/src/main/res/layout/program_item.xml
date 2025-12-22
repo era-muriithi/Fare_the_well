@@ -2,37 +2,40 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
+    android:layout_margin="10dp"
     android:elevation="4dp"
     android:padding="12dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:padding="5dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/StarttextTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Start"
+            android:textColor="@color/black"
             android:textStyle="bold"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/endtextTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="EndTime"
-            android:textStyle="bold"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textActivity"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Activity"
+            android:fontFamily="@font/poppinssemibold"
             android:textSize="14sp"
-            android:layout_marginTop="4dp" />
+            />
     </LinearLayout>
+    <ImageView
+        android:id="@+id/btnRemove"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/remove"
+        android:layout_gravity="end"
+        android:layout_margin="5dp"
+        android:padding="4dp"/>
 </androidx.cardview.widget.CardView>

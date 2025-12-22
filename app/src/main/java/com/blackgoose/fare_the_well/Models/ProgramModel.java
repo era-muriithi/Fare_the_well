@@ -3,37 +3,19 @@ package com.blackgoose.fare_the_well.Models;
 import java.io.Serializable;
 
 public class ProgramModel implements Serializable {
-    private String Starttime;
-
-
-    private String Completiontime;
+    private String startTime;
     private String action;
 
     public ProgramModel() {}
 
-    public ProgramModel(String Starttime, String Completiontime, String action) {
-        this.Starttime = Starttime;
-        this.Completiontime = Completiontime;
+    public ProgramModel(String startTime, String action) {
+        this.startTime = startTime;
         this.action = action;
     }
-    public String getCompletiontime() {
-        return Completiontime;
-    }
 
-    public void setCompletiontime(String completiontime) {
-        Completiontime = completiontime;
-    }
+    public String getStartTime() { return startTime; }
+    public void setStartTime(String startTime) { this.startTime = startTime; }
 
-    public String getStarttime() {
-        return Starttime;
-    }
-
-    public void setStarttime(String starttime) {
-        Starttime = starttime;
-    }
-
-
-    public String getAction() {
-        return action;
-    }
+    public String getAction() { return action; }
+    public void setAction(String action) { this.action = action; }
 }
