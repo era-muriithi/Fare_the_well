@@ -155,10 +155,16 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
+        <com.blackgoose.fare_the_well.ExpandedGridviewAdapter
+            android:id="@+id/galleryGridView"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="wrap_content"
+            android:numColumns="3"
+            android:verticalSpacing="6dp"
+            android:horizontalSpacing="6dp"
+            android:stretchMode="columnWidth"
+            android:padding="8dp"
+            android:layout_marginBottom="15dp" />
 
 
 
