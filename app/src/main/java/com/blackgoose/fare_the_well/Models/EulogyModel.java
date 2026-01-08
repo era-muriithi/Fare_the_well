@@ -16,4 +16,8 @@ public class EulogyModel implements Serializable {
     public String userId, mpesaReceipt;
 
     public EulogyModel() {} // Required empty constructor
+
+    public String getLastName() {
+        return lastName;
+    }
 }

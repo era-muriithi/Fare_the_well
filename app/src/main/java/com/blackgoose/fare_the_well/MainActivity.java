@@ -109,35 +109,37 @@ public class MainActivity extends AppCompatActivity
     private void setupSearch() {
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void afterTextChanged(Editable s) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filterByFirstName(s.toString());
+                filterByLastName(s.toString());
             }
-
-            @Override public void afterTextChanged(Editable s) {}
         });
     }
 
-    private void filterByFirstName(String query) {
+    private void filterByLastName(String query) {
         filteredEulogies.clear();
 
-        if (query.isEmpty()) {
+        if (query == null || query.trim().isEmpty()) {
             filteredEulogies.addAll(allEulogies);
         } else {
-            String searchText = query.toLowerCase(Locale.getDefault());
+            String search = query.toLowerCase().trim();
 
-            for (EulogyModel e : allEulogies) {
-                if (e.firstName != null &&
-                        e.firstName.toLowerCase(Locale.getDefault())
-                                .contains(searchText)) {
-                    filteredEulogies.add(e);
+            for (EulogyModel model : allEulogies) {
+                String lastName = model.getLastName();
+
+                if (lastName != null &&
+                        lastName.toLowerCase().contains(search)) {
+                    filteredEulogies.add(model);
                 }
             }
         }
 
         adapter.notifyDataSetChanged();
-        emptyText.setVisibility(filteredEulogies.isEmpty() ? View.VISIBLE : View.GONE);
+        emptyText.setVisibility(filteredEulogies.isEmpty()
+                ? View.VISIBLE
+                : View.GONE);
     }
 
     @Override
