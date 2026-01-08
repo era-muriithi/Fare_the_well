@@ -13,6 +13,7 @@ public class EulogyModel implements Serializable {
     public ArrayList<String> galleryImages;
     public ArrayList<ProgramModel> funeralPrograms;
     public String status;
+    public Object dateCreated;
     public String userId, mpesaReceipt;
 
     public EulogyModel() {} // Required empty constructor
@@ -20,4 +21,15 @@ public class EulogyModel implements Serializable {
     public String getLastName() {
         return lastName;
     }
+    public String getDateCreated() {
+        if (dateCreated instanceof Long) {
+            return String.valueOf(dateCreated);
+        }
+        return (String) dateCreated;
+    }
+
+    public void setDateCreated(Object dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
 }

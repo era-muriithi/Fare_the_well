@@ -236,6 +236,27 @@
                 android:padding="5dp"
                 android:textStyle="bold"/>
 
+            <TextView
+                android:id="@+id/date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/date_created"
+                android:layout_below="@+id/status_text"
+                android:text="Uploaded:"
+                android:padding="5dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/date_created"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/status"
+                android:layout_alignParentEnd="true"
+                android:text="12 Dec 2020"
+                android:textColor="#FF5722"
+                android:padding="5dp"
+                android:textStyle="bold"/>
+
         </RelativeLayout>
 
     </LinearLayout>

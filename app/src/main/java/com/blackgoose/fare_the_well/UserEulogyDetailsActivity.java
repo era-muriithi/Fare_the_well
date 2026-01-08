@@ -28,7 +28,7 @@ public class UserEulogyDetailsActivity extends AppCompatActivity {
 
     private TextView deceasedFname, deceasedSname, deceasedLname, eulogyId;
     private TextView birthYear, passingYear, burialLocation, eulogyText;
-    private TextView authorName, authorPhone, status;
+    private TextView authorName, authorPhone, status, upload_date;
     private ImageButton btnShare;
 
     private EulogyModel eulogy;
@@ -68,7 +68,7 @@ public class UserEulogyDetailsActivity extends AppCompatActivity {
         authorName = findViewById(R.id.author_name);
         authorPhone = findViewById(R.id.author_phone);
         status = findViewById(R.id.status);
-
+        upload_date = findViewById(R.id.date_created);
         btnShare = findViewById(R.id.btnShare);
     }
 
@@ -99,6 +99,7 @@ public class UserEulogyDetailsActivity extends AppCompatActivity {
         authorName.setText(eulogy.authorName);
         authorPhone.setText(eulogy.authorPhone);
         status.setText(eulogy.status);
+        upload_date.setText(eulogy.getDateCreated());
 
         setupGallery();
         setupPrograms();
