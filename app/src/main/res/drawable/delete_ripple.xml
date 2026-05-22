@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- delete_ripple.xml -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#22D4AF6A">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</ripple>

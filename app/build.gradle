@@ -51,6 +51,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.6.0'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.activity:activity:1.10.1'
+    implementation libs.appcompat
+    implementation libs.cardview
+    implementation libs.google.material
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -66,6 +69,7 @@ dependencies {
     implementation 'com.orhanobut:dialogplus:1.11@aar'
     implementation 'androidx.viewpager2:viewpager2:1.1.0'
     implementation "androidx.credentials:credentials:1.5.0"
+    implementation 'com.google.android.material:material:1.11.0'
 
 
 }

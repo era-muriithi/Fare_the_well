@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- btn_proceed_bg.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:startColor="#0C1A2E"
+        android:endColor="#1A3A5C"
+        android:angle="0"
+        android:type="linear" />
+    <corners android:radius="14dp" />
+    <stroke android:width="1dp" android:color="#D4AF6A" />
+</shape>

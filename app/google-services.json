@@ -15,13 +15,50 @@
       },
       "oauth_client": [
         {
-          "client_id": "1010010283171-u5nmkg7kmfhaonl8l4r9m91280osqlnv.apps.googleusercontent.com",
+          "client_id": "1010010283171-nl0mu58hqtimknk3nnedo9s0cbk7ovkt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.blackgoose.fare_the_well",
-            "certificate_hash": "ec64eeab08dd1771c35635e441c60d0e3aa741c1"
+            "certificate_hash": "6b869fc0db0764bf3862b09f2900f78e3eda35d9"
           }
         },
+        {
+          "client_id": "1010010283171-um3v58jchr16327u89n8jsik6rtcghel.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blackgoose.fare_the_well",
+            "certificate_hash": "8f1547b5856dd0e8eb317e209e711be02b02ebda"
+          }
+        },
+        {
+          "client_id": "1010010283171-vn8fj0sl46t0722pqvm40f8eavhksqv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI11iKDS0o3Tt1mp-rUJkarBMeTrNUOKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010010283171-vn8fj0sl46t0722pqvm40f8eavhksqv6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010010283171:android:4c0f656a60d843935bf316",
+        "android_client_info": {
+          "package_name": "com.olympus.farewelladmin"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "1010010283171-vn8fj0sl46t0722pqvm40f8eavhksqv6.apps.googleusercontent.com",
           "client_type": 3

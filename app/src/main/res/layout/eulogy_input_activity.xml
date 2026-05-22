@@ -1,317 +1,719 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    >
+    android:background="#F5F0E8"
+    android:scrollbarStyle="outsideOverlay"
+    android:fillViewport="true">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/add_image"
+        <!-- ── HERO PHOTO SECTION ── -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:src="@drawable/gallery"
-            android:scaleType="centerCrop"
-            />
+            android:layout_height="340dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/select_image_button"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:padding="5dp"
-            android:background="#0C2232"
-            android:layout_gravity="end"
-            android:text="Select Image"
-            android:inputType="text"
-            android:drawableStart="@drawable/image_24"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            <!-- Hero image -->
+            <ImageView
+                android:id="@+id/add_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/gallery"
+                android:scaleType="centerCrop"
+                android:contentDescription="Memorial photo" />
 
-        <LinearLayout
+            <!-- Gradient overlay: bottom-up dark scrim -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/hero_gradient_overlay" />
+
+            <!-- Watermark candle / dove icon (optional decorative) -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="16dp"
+                android:src="@drawable/image_24"
+                android:alpha="0.6"
+                android:contentDescription="Decorative icon"
+                app:tint="#FFFFFF" />
+
+            <!-- Bottom overlay content -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- "In Loving Memory" label -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="In Loving Memory"
+                    android:textColor="#D4AF6A"
+                    android:textSize="12sp"
+                    android:letterSpacing="0.18"
+                    android:textAllCaps="true"
+                    android:fontFamily="sans-serif-medium" />
+
+                <!-- Select image button — refined pill -->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/select_image_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn_gold_pill"
+                    android:drawableStart="@drawable/image_24"
+                    android:drawablePadding="6dp"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:text="Add Photo"
+                    android:textColor="#0C1A2E"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05"
+                    tools:ignore="MissingClass" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- ── SECTION DIVIDER: thin gold rule ── -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#D4AF6A" />
+
+        <!-- ════════════════════════════════════
+             CARD 1 — NAMES
+             ════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/layout_background"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/nameTextview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Names"
-                android:layout_gravity="center"
-                android:textStyle="bold"/>
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="24dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            tools:ignore="MissingClass">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <EditText
-                android:id="@+id/firstNameEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/edittext_background"
-                android:hint="First Name"
-                android:inputType="textCapSentences"
-                android:textColor="#272727"
-                android:textStyle="bold"
-                android:textColorHint="#9D9C9C"
-                android:textSize="15sp"
-                android:layout_margin="10dp"
-                android:padding="10dp"/>
+                <!-- Card header row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="18dp">
 
-            <EditText
-                android:id="@+id/secondNameEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_background"
-                android:hint="Second Name"
-                android:layout_weight="1"
-                android:inputType="textCapSentences"
-                android:textColor="#272727"
-                android:textStyle="bold"
-                android:textColorHint="#9D9C9C"
-                android:textSize="15sp"
-                android:layout_margin="10dp"
-                android:padding="10dp"/>
+                    <!-- Gold accent bar -->
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="#D4AF6A"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:id="@+id/nameTextview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Name &amp; Burial"
+                        android:textColor="#0C1A2E"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.02" />
+                </LinearLayout>
+
+                <!-- Row 1: First + Second name -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- First Name -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxStrokeColor="#D4AF6A"
+                        app:hintTextColor="#8A7A5A"
+                        app:boxStrokeWidth="1.5dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/firstNameEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="First Name"
+                            android:inputType="textCapSentences"
+                            android:textColor="#1A1A2E"
+                            android:textSize="14sp"
+                            android:padding="14dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Second Name -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxStrokeColor="#D4AF6A"
+                        app:hintTextColor="#8A7A5A"
+                        app:boxStrokeWidth="1.5dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/secondNameEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Second Name"
+                            android:inputType="textCapSentences"
+                            android:textColor="#1A1A2E"
+                            android:textSize="14sp"
+                            android:padding="14dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Row 2: Last name + Burial location -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp">
+
+                    <!-- Last Name -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxStrokeColor="#D4AF6A"
+                        app:hintTextColor="#8A7A5A"
+                        app:boxStrokeWidth="1.5dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/lastNameEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Last Name"
+                            android:inputType="textCapSentences"
+                            android:textColor="#1A1A2E"
+                            android:textSize="14sp"
+                            android:padding="14dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Burial Location -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxStrokeColor="#D4AF6A"
+                        app:hintTextColor="#8A7A5A"
+                        app:startIconDrawable="@drawable/image_24"
+                        app:startIconTint="#D4AF6A"
+                        app:boxStrokeWidth="1.5dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/burialLocationEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Burial Location"
+                            android:inputType="textCapSentences"
+                            android:textColor="#1A1A2E"
+                            android:textSize="14sp"
+                            android:padding="14dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ════════════════════════════════════
+             CARD 2 — DATES
+             ════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="14dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <EditText
-                android:id="@+id/lastNameEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_background"
-                android:layout_weight="1"
-                android:hint="Last Name"
-                android:inputType="textCapSentences"
-                android:textColor="#272727"
-                android:textStyle="bold"
-                android:textColorHint="#9D9C9C"
-                android:textSize="15sp"
-                android:layout_margin="10dp"
-                android:padding="10dp"/>
+                <!-- Card header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="18dp">
 
-            <EditText
-                android:id="@+id/burialLocationEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_background"
-                android:hint="Burial Location"
-               android:layout_weight="1"
-                android:inputType="textCapSentences"
-                android:textColor="#272727"
-                android:textStyle="bold"
-                android:textColorHint="#9D9C9C"
-                android:textSize="15sp"
-                android:layout_margin="10dp"
-                android:padding="10dp"/>
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="#D4AF6A"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Dates of Life"
+                        android:textColor="#0C1A2E"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.02" />
+                </LinearLayout>
+
+                <!-- Date row with a decorative dash between -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <!-- Birth Year -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxStrokeColor="#D4AF6A"
+                        app:hintTextColor="#8A7A5A"
+                        app:endIconDrawable="@drawable/calendar"
+                        app:endIconTint="#D4AF6A"
+                        app:endIconMode="custom"
+                        app:boxStrokeWidth="1.5dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/DateofBirthEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Birth Year"
+                            android:focusable="false"
+                            android:clickable="true"
+                            android:textColor="#1A1A2E"
+                            android:textSize="14sp"
+                            android:padding="14dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Dash separator -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="–"
+                        android:textColor="#D4AF6A"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp" />
+
+                    <!-- Passing Year -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxStrokeColor="#D4AF6A"
+                        app:hintTextColor="#8A7A5A"
+                        app:endIconDrawable="@drawable/calendar"
+                        app:endIconTint="#D4AF6A"
+                        app:endIconMode="custom"
+                        app:boxStrokeWidth="1.5dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/passOnEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Passing Year"
+                            android:focusable="false"
+                            android:clickable="true"
+                            android:textColor="#1A1A2E"
+                            android:textSize="14sp"
+                            android:padding="14dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
-
-        <LinearLayout
+        <!-- ════════════════════════════════════
+             CARD 3 — THE EULOGY
+             ════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/layout_background"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dates"
-                android:layout_gravity="center"
-                android:textStyle="bold"/>
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="14dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/DateofBirthEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:background="@drawable/edittext_background"
-                android:drawableEnd="@drawable/calendar"
-                android:hint="Birth Year"
-                android:padding="10dp"
-                android:textColor="#272727"
-                android:textColorHint="#8C8A8A" />
+                <!-- Card header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="6dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passOnEditText"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_background"
-                android:drawableEnd="@drawable/calendar"
-                android:hint="Passing Year"
-                android:padding="10dp"
-                android:textColor="#272727"
-                android:textColorHint="#8C8A8A" />
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="#D4AF6A"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="The Eulogy"
+                        android:textColor="#0C1A2E"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.02" />
+                </LinearLayout>
+
+                <!-- Subtitle -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Share their life, memories and legacy"
+                    android:textColor="#9A8A70"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif"
+                    android:layout_marginBottom="14dp"
+                    android:layout_marginStart="14dp" />
+
+                <!-- Multi-line input -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxStrokeColor="#D4AF6A"
+                    app:hintTextColor="#8A7A5A"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="2000"
+                    app:boxStrokeWidth="1.5dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/lifeBiography"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="160dp"
+                        android:gravity="top|start"
+                        android:hint="Write their story here…"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:textColor="#1A1A2E"
+                        android:textSize="14sp"
+                        android:lineSpacingMultiplier="1.5"
+                        android:padding="14dp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-
-        </LinearLayout>
-
-        <LinearLayout
+        <!-- ════════════════════════════════════
+             CARD 4 — LIFE IN PICTURES
+             ════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/layout_background"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="14dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="The Eulogy"
-               android:layout_margin="10dp"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/lifeBiography"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext_background"
-                android:hint= "Share their life, Memories and legacy"
-                android:lineHeight="20dp"
-                android:textColor="#272727"
-                android:textStyle="bold"
-                android:textColorHint="#858585"
-                android:textSize="15sp"
-                android:layout_margin="10dp"
-                android:inputType="textMultiLine"
-                android:padding="5dp"/>
+                android:orientation="vertical"
+                android:padding="20dp">
 
+                <!-- Card header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="14dp">
 
-        </LinearLayout>
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="#D4AF6A"
+                        android:layout_marginEnd="10dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Life in Pictures"
-            android:layout_margin="10dp"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Life in Pictures"
+                        android:textColor="#0C1A2E"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.02" />
+                </LinearLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
+                <!-- ViewPager with rounded corners frame -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:background="@drawable/rounded_photo_frame">
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <!-- Page indicator placeholder -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal"
+                        android:id="@+id/pagerIndicatorContainer" />
+                </FrameLayout>
+
+                <!-- Select images button -->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/select_images_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_gravity="end"
+                    android:background="@drawable/btn_navy_pill"
+                    android:drawableStart="@drawable/image_24"
+                    android:drawablePadding="6dp"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:text="Add Photos"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ════════════════════════════════════
+             CARD 5 — EULOGY AUTHOR
+             ════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/select_images_button"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:padding="5dp"
-            android:background="#0C2232"
-            android:layout_gravity="end"
-            android:text="Select Images"
-            android:inputType="text"
-            android:drawableStart="@drawable/image_24"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
-
-
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/layout_background"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="14dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Eulogy Author"
-                android:layout_gravity="center"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/only_visible_to_farewell"
-                android:layout_gravity="center"
-                />
-
-            <EditText
-                android:id="@+id/authorNameEditText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext_background"
-                android:hint="Your Name"
-                android:inputType="textCapSentences"
-                android:textColor="#272727"
-                android:textStyle="bold"
-                android:textColorHint="#9D9C9C"
-                android:textSize="15sp"
-                android:layout_margin="10dp"
-                android:padding="10dp"/>
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <EditText
-                android:id="@+id/phoneEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_background"
-                android:hint="Your phone"
-                android:textColor="#272727"
-                android:textStyle="bold"
-                android:textColorHint="#9D9C9C"
-                android:textSize="15sp"
-                android:layout_margin="10dp"
-                android:inputType="phone"
-                android:padding="10dp"/>
+                <!-- Card header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="6dp">
 
-        </LinearLayout>
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="#D4AF6A"
+                        android:layout_marginEnd="10dp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/proceed_btn"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Eulogy Author"
+                        android:textColor="#0C1A2E"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.02" />
+                </LinearLayout>
+
+                <!-- Privacy notice chip-style banner -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/info_banner_bg"
+                    android:padding="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/image_24"
+                        android:tint="#D4AF6A"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="Info" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/only_visible_to_farewell"
+                        android:textColor="#6B5E42"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- Author Name -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxCornerRadiusTopStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxStrokeColor="#D4AF6A"
+                    app:hintTextColor="#8A7A5A"
+                    app:startIconDrawable="@drawable/image_24"
+                    app:startIconTint="#D4AF6A"
+                    app:boxStrokeWidth="1.5dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/authorNameEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Your Name"
+                        android:inputType="textCapSentences"
+                        android:textColor="#1A1A2E"
+                        android:textSize="14sp"
+                        android:padding="14dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Phone -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:boxCornerRadiusTopStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxStrokeColor="#D4AF6A"
+                    app:hintTextColor="#8A7A5A"
+                    app:startIconDrawable="@drawable/image_24"
+                    app:startIconTint="#D4AF6A"
+                    app:boxStrokeWidth="1.5dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phoneEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Your Phone Number"
+                        android:inputType="phone"
+                        android:textColor="#1A1A2E"
+                        android:textSize="14sp"
+                        android:padding="14dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ── BOTTOM SPACER ── -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="24dp" />
+
+        <!-- ════════════════════════════════════
+             PROCEED BUTTON — Full-width, navy + gold
+             ════════════════════════════════════ -->
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="#052661"
-            android:text="Proceed"
-            android:drawableEnd="@drawable/arrow_circle_right_24"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp">
+
+            <!-- Shadow layer (simulate depth) -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/btn_shadow_layer" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/proceed_btn"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/btn_proceed_bg"
+                android:drawableEnd="@drawable/arrow_circle_right_24"
+                android:drawablePadding="10dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="PROCEED"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.12" />
+        </FrameLayout>
 
     </LinearLayout>
 </ScrollView>
