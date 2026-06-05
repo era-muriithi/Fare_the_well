@@ -1,84 +1,660 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================
+     REVAMPED: FAREWELL HOME ACTIVITY
+     Services: Eulogies, Tributes, Hearse Booking, Account
+     All original IDs preserved. New IDs added for new features.
+     ============================================================ -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="#03002e"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F0E8"
     tools:context=".HomeActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="In Loving Memory"
-        android:layout_gravity="center"
-        android:textSize="20sp"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/homeText"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:gravity="center"
-        android:textSize="14sp"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        />
-
-    <ImageView
+    <!-- ══════════════════════════════════════
+         BRAND HEADER (static — not scrollable)
+         ══════════════════════════════════════ -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/iris"/>
+        android:layout_height="wrap_content"
+        android:background="#0C1A2E"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="32dp"
+        android:paddingBottom="24dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
 
+        <!-- Logo circle -->
+        <FrameLayout
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/logo_circle_bg"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="12dp">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:src="@drawable/location_on"
+                android:contentDescription="Farewell logo"
+                app:tint="#D4AF6A" />
+        </FrameLayout>
+
+        <!-- App name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Farewell"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:fontFamily="serif"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="6dp" />
+
+        <!-- Gold rule -->
+        <View
+            android:layout_width="36dp"
+            android:layout_height="2dp"
+            android:background="#D4AF6A"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Tagline -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/homeText"
+            android:textColor="#8A9AB5"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <!-- Gold accent rule -->
     <View
         android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#D4AF6A" />
+
+    <!-- ══════════════════════════════════════
+         SCROLLABLE CONTENT
+         ══════════════════════════════════════ -->
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:fillViewport="true">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/newEulogy_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#09385B"
-        android:text="Create a new Eulogy"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/browse_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#052661"
-        android:text="Browse Tributes"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textStyle="bold" />
+            <!-- ── SECTION: EULOGY SERVICES ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="12dp">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/account_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#047B89"
-        android:text="My Account"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EULOGY SERVICES"
+                    android:textColor="#D4AF6A"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.14"
+                    android:fontFamily="sans-serif-medium" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="#E8D9A0"
+                    android:layout_marginStart="10dp" />
+            </LinearLayout>
+
+            <!-- Create Eulogy + Browse Tributes (side-by-side) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <!-- Create Eulogy card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/newEulogy_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardElevation="3dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <!-- Gold left strip -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:background="#D4AF6A"
+                            android:layout_marginBottom="12dp" />
+
+                        <!-- Icon -->
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/service_icon_bg"
+                            android:layout_marginBottom="10dp">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/baseline_add_24"
+                                android:contentDescription="Create eulogy"
+                                app:tint="#C49A50" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Create Eulogy"
+                            android:textColor="#0C1A2E"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="4dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Write and share a tribute"
+                            android:textColor="#8A7A5A"
+                            android:textSize="11sp"
+                            android:lineSpacingMultiplier="1.4" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Browse Tributes card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/browse_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardElevation="3dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:background="#D4AF6A"
+                            android:layout_marginBottom="12dp" />
+
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/service_icon_bg"
+                            android:layout_marginBottom="10dp">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/image_24"
+                                android:contentDescription="Browse tributes"
+                                app:tint="#C49A50" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Browse Tributes"
+                            android:textColor="#0C1A2E"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="4dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Explore shared eulogies"
+                            android:textColor="#8A7A5A"
+                            android:textSize="11sp"
+                            android:lineSpacingMultiplier="1.4" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <!-- ── SECTION: HEARSE SERVICES ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TRANSPORTATION"
+                    android:textColor="#D4AF6A"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.14"
+                    android:fontFamily="sans-serif-medium" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="#E8D9A0"
+                    android:layout_marginStart="10dp" />
+            </LinearLayout>
+
+            <!-- Book Hearse -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/bookHearse_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="14dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:minHeight="56dp"
+                        android:background="@drawable/item_accent_strip_bg"
+                        android:layout_marginEnd="14dp" />
+
+                    <FrameLayout
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/service_icon_bg"
+                        android:layout_marginEnd="14dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/arrow_circle_right_24"
+                            android:contentDescription="Book hearse"
+                            app:tint="#C49A50" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Book Hearse Service"
+                            android:textColor="#0C1A2E"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="3dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Dignified transportation — schedule a pickup"
+                            android:textColor="#8A7A5A"
+                            android:textSize="12sp"
+                            android:lineSpacingMultiplier="1.4" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/arrow_circle_right_24"
+                        android:contentDescription="Go"
+                        app:tint="#D4AF6A" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- My Bookings -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/myBookings_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="14dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:minHeight="56dp"
+                        android:background="@drawable/item_accent_strip_bg"
+                        android:layout_marginEnd="14dp" />
+
+                    <FrameLayout
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/service_icon_bg"
+                        android:layout_marginEnd="14dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/calendar"
+                            android:contentDescription="My bookings"
+                            app:tint="#C49A50" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="My Bookings"
+                            android:textColor="#0C1A2E"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="3dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="View and manage hearse reservations"
+                            android:textColor="#8A7A5A"
+                            android:textSize="12sp"
+                            android:lineSpacingMultiplier="1.4" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/arrow_circle_right_24"
+                        android:contentDescription="Go"
+                        app:tint="#D4AF6A" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ── SECTION: QUICK ACCESS ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="QUICK ACCESS"
+                    android:textColor="#D4AF6A"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.14"
+                    android:fontFamily="sans-serif-medium" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="#E8D9A0"
+                    android:layout_marginStart="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <!-- My Account card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/account_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardElevation="3dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:background="#D4AF6A"
+                            android:layout_marginBottom="12dp" />
+
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/service_icon_bg"
+                            android:layout_marginBottom="10dp">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/location_on"
+                                android:contentDescription="My account"
+                                app:tint="#C49A50" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="My Account"
+                            android:textColor="#0C1A2E"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="4dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Profile and settings"
+                            android:textColor="#8A7A5A"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- My Uploads card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/myUploads_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardElevation="3dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:background="#D4AF6A"
+                            android:layout_marginBottom="12dp" />
+
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/service_icon_bg"
+                            android:layout_marginBottom="10dp">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/image_24"
+                                android:contentDescription="My uploads"
+                                app:tint="#C49A50" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="My Uploads"
+                            android:textColor="#0C1A2E"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="4dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Track submitted eulogies"
+                            android:textColor="#8A7A5A"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <!-- ── SUPPORT BANNER ── -->
+            <LinearLayout
+                android:id="@+id/supportBanner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0C1A2E"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/location_on"
+                    android:layout_marginEnd="12dp"
+                    android:contentDescription="Support"
+                    app:tint="#D4AF6A" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Need help planning?"
+                        android:textColor="#FFFFFF"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="2dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Our team is available to assist with arrangements"
+                        android:textColor="#8A9AB5"
+                        android:textSize="11sp"
+                        android:lineSpacingMultiplier="1.4" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/contactUs_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:background="@drawable/btn_gold_pill"
+                    android:text="Contact us"
+                    android:textColor="#0C1A2E"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:layout_marginStart="10dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
 </LinearLayout>

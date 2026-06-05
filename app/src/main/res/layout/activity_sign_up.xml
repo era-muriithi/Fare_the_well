@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================
+     FAREWELL: SIGN-UP / REGISTRATION SCREEN
+     Aesthetic: Warm Luxury Memorial — navy + ivory + gold
+     Fields: First Name, Second Name, Phone + Country Code Picker
+     ============================================================ -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F0E8"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ══════════════════════════════════════
+             BRAND HEADER
+             ══════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0C1A2E"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="48dp"
+            android:paddingBottom="36dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
+
+            <!-- Logo circle -->
+            <FrameLayout
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:background="@drawable/logo_circle_bg"
+                android:layout_marginBottom="14dp">
+
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/location_on"
+                    android:tint="#D4AF6A"
+                    android:contentDescription="Farewell logo" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Farewell"
+                android:textColor="#FFFFFF"
+                android:textSize="26sp"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:letterSpacing="0.04"
+                android:layout_marginBottom="6dp" />
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="2dp"
+                android:background="#D4AF6A"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Honouring lives, preserving legacies"
+                android:textColor="#8A9AB5"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:letterSpacing="0.02" />
+        </LinearLayout>
+
+        <!-- Gold accent rule -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#D4AF6A" />
+
+        <!-- ══════════════════════════════════════
+             SIGN-UP FORM CARD
+             ══════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="24dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="22dp">
+
+                <!-- Card header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="6dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="24dp"
+                        android:background="#D4AF6A"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Create your account"
+                        android:textColor="#0C1A2E"
+                        android:textSize="18sp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Subtitle -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Join Farewell to create and share eulogies that honour your loved ones."
+                    android:textColor="#8A7A5A"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif"
+                    android:lineSpacingMultiplier="1.5"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginBottom="22dp" />
+
+                <!-- ── FIRST NAME + SECOND NAME (side by side) ── -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="14dp">
+
+                    <!-- First Name -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="FIRST NAME"
+                            android:textColor="#D4AF6A"
+                            android:textSize="10sp"
+                            android:letterSpacing="0.1"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="5dp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxStrokeColor="#D4AF6A"
+                            app:hintTextColor="#8A7A5A"
+                            app:boxStrokeWidth="1.5dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/firstNameEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="e.g. James"
+                                android:inputType="textPersonName|textCapWords"
+                                android:textColor="#1A1A2E"
+                                android:textSize="14sp"
+                                android:padding="13dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <!-- Second Name -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SECOND NAME"
+                            android:textColor="#D4AF6A"
+                            android:textSize="10sp"
+                            android:letterSpacing="0.1"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginBottom="5dp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxStrokeColor="#D4AF6A"
+                            app:hintTextColor="#8A7A5A"
+                            app:boxStrokeWidth="1.5dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/secondNameEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="e.g. Kamau"
+                                android:inputType="textPersonName|textCapWords"
+                                android:textColor="#1A1A2E"
+                                android:textSize="14sp"
+                                android:padding="13dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ── PHONE NUMBER + COUNTRY CODE ── -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PHONE NUMBER"
+                    android:textColor="#D4AF6A"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.1"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginBottom="5dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="14dp">
+
+                    <com.hbb20.CountryCodePicker
+                        android:id="@+id/countryCodePicker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="#FAFAF8"
+                        android:textColor="#0C1A2E"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        app:ccp_defaultNameCode="KE"
+                        app:ccp_showFlag="true"
+                        app:ccp_showFullName="false"
+                        app:ccp_showArrow="true"
+                        app:ccp_arrowColor="#D4AF6A"
+                        app:ccp_textSize="14sp"/>
+
+                    <!-- Phone number input -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxStrokeColor="#D4AF6A"
+                        app:hintTextColor="#8A7A5A"
+                        app:boxStrokeWidth="1.5dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/phoneEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="700 000 000"
+                            android:inputType="phone"
+                            android:textColor="#1A1A2E"
+                            android:textSize="14sp"
+                            android:padding="13dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- ── OR DIVIDER ── -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="#EDE4CC" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Already have an account?"
+                        android:textColor="#9A8A70"
+                        android:textSize="11sp"
+                        android:letterSpacing="0.04"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="#EDE4CC" />
+                </LinearLayout>
+
+                <!-- ── TERMS & PRIVACY ── -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/info_banner_bg"
+                    android:padding="12dp"
+                    android:layout_marginBottom="4dp">
+
+                    <CheckBox
+                        android:id="@+id/checkbox_privacy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#D4AF6A"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:id="@+id/termsPrivacy"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/privacyTerms"
+                        android:textColor="#0C1A2E"
+                        android:textSize="12sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:lineSpacingMultiplier="1.4" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════════
+             CREATE ACCOUNT BUTTON
+             ══════════════════════════════════════ -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="20dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/btn_shadow_layer" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signUpButton"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@drawable/btn_proceed_bg"
+                android:drawableEnd="@drawable/arrow_circle_right_24"
+                android:drawablePadding="10dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="CREATE ACCOUNT"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+        </FrameLayout>
+
+        <!-- Sign in link -->
+        <TextView
+            android:id="@+id/signInLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:text="Already have an account? Sign in →"
+            android:textColor="#D4AF6A"
+            android:textSize="13sp"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="bold"
+            android:padding="6dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,263 +1,637 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================
+     REVAMPED: ADMIN EULOGY DETAIL / REVIEW SCREEN
+     Aesthetic: Warm Luxury Memorial — navy + ivory + gold
+     All original IDs preserved. Pay button added below dates.
+     ============================================================ -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F5F0E8"
+    android:fillViewport="true">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <!-- Hidden ID field (retained as-is) -->
         <TextView
             android:id="@+id/id_eulogy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:textStyle="bold"/>
+            android:visibility="gone"
+            android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/deceased_image"
+        <!-- ══════════════════════════════════════
+             HERO IMAGE + OVERLAYS + NAME + SHARE
+             ══════════════════════════════════════ -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            android:layout_height="300dp">
 
-        <LinearLayout
-            android:id="@+id/deceased_names_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:gravity="center_horizontal">
+            <ImageView
+                android:id="@+id/deceased_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:contentDescription="Photo of the deceased" />
 
-            <TextView
-                android:id="@+id/deceased_Fname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="Maina"
-                android:textColor="#202020"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+            <!-- Bottom-up dark scrim -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/hero_gradient_overlay" />
 
-            <TextView
-                android:id="@+id/deceased_Sname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="Njenya"
-                android:textColor="#202020"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/deceased_Lname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="Nduno"
-                android:textColor="#202020"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
+            <!-- Share button — top-right -->
             <ImageButton
                 android:id="@+id/btnShare"
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="14dp"
+                android:background="@drawable/share_btn_bg"
+                android:src="@drawable/location_on"
+                android:tint="#FFFFFF"
+                android:contentDescription="Share eulogy"
+                android:padding="9dp" />
+
+            <!-- Overlay content — bottom -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                 />
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:padding="20dp">
 
+                <!-- Gold overline -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="IN LOVING MEMORY"
+                    android:textColor="#D4AF6A"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.18"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="8dp" />
 
-        </LinearLayout>
+                <!-- Full name row -->
+                <LinearLayout
+                    android:id="@+id/deceased_names_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/burial_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="3dp"
-            android:text="China"
-            android:layout_gravity="center"
-            android:textColor="#FF5722"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:drawableStartCompat="@drawable/location_on" />
+                    <TextView
+                        android:id="@+id/deceased_Fname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Maina"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/deceased_Sname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Njenya"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/deceased_Lname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Nduno"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Burial location -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="6dp">
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/location_on"
+                        android:tint="#D4AF6A"
+                        android:layout_marginEnd="4dp"
+                        android:contentDescription="Location" />
+
+                    <TextView
+                        android:id="@+id/burial_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="China"
+                        android:textColor="#D4AF6A"
+                        android:textSize="13sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.04" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- Gold accent rule -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#D4AF6A" />
+
+        <!-- ══════════════════════════════════════
+             DATES BANNER
+             ══════════════════════════════════════ -->
         <LinearLayout
             android:id="@+id/datesLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:background="#0C1A2E"
+            android:gravity="center"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
 
-            <TextView
-                android:id="@+id/deceased_dob"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BORN"
+                    android:textColor="#8A9AB5"
+                    android:textSize="9sp"
+                    android:letterSpacing="0.14"
+                    android:fontFamily="sans-serif" />
+
+                <TextView
+                    android:id="@+id/deceased_dob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="01 / 02 / 1945"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&#8211;"
+                android:textColor="#D4AF6A"
+                android:textSize="28sp"
+                android:textStyle="bold"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="5dp"
-                android:text="01/02/1945"
-                android:textColor="#222222"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_marginEnd="20dp"
+                android:fontFamily="serif" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-"
-                android:textColor="@color/black"
-                android:textSize="50sp" />
+                android:orientation="vertical"
+                android:gravity="center">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PASSED"
+                    android:textColor="#8A9AB5"
+                    android:textSize="9sp"
+                    android:letterSpacing="0.14"
+                    android:fontFamily="sans-serif" />
 
-            <TextView
-                android:id="@+id/deceased_passing"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="30/12/2020"
-                android:textColor="#292828"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
+                <TextView
+                    android:id="@+id/deceased_passing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30 / 12 / 2020"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
         </LinearLayout>
-        <TextView
-            android:id="@+id/earlylifeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_vertical"
-            android:text="Eulogy"
-            android:textColor="#FF5722"
-            android:textSize="14sp"
-            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/life_biography"
+        <!-- ══════════════════════════════════════
+             PAY BUTTON  ← NEW
+             ══════════════════════════════════════ -->
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/earlylifeText"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:lineHeight="28sp"
-            android:padding="10dp"
-            android:text=""
-            android:textColor="#202020"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="20dp">
 
-        <com.blackgoose.fare_the_well.ExpandedGridviewAdapter
-            android:id="@+id/galleryGridView"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/btn_shadow_layer" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/payButton"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@drawable/btn_pay_bg"
+                android:drawableEnd="@drawable/arrow_circle_right_24"
+                android:drawablePadding="10dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="PAY FOR EULOGY"
+                android:textColor="#0C1A2E"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08" />
+        </FrameLayout>
+
+        <!-- ══════════════════════════════════════
+             CARD: EULOGY TEXT
+             ══════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numColumns="3"
-            android:verticalSpacing="6dp"
-            android:horizontalSpacing="6dp"
-            android:stretchMode="columnWidth"
-            android:padding="8dp"
-            android:layout_marginBottom="15dp" />
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Funeral Progam"
-            android:textColor="#FF5722"
-            android:textStyle="bold"/>
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="#D4AF6A"
+                        android:layout_marginEnd="10dp" />
 
+                    <TextView
+                        android:id="@+id/earlylifeText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Eulogy"
+                        android:textColor="#0C1A2E"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/reviewProgramsRv"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="&#8220;"
+                    android:textColor="#E8D9A0"
+                    android:textSize="52sp"
+                    android:fontFamily="serif"
+                    android:lineSpacingMultiplier="0.5"
+                    android:layout_marginBottom="-10dp" />
+
+                <TextView
+                    android:id="@+id/life_biography"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:textColor="#2C2C2C"
+                    android:textSize="14sp"
+                    android:lineSpacingMultiplier="1.7"
+                    android:fontFamily="serif" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════════
+             CARD: LIFE IN PICTURES (Gallery Grid)
+             ══════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="14dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
 
-        <RelativeLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="14dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="#D4AF6A"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Life in Pictures"
+                        android:textColor="#0C1A2E"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <com.blackgoose.fare_the_well.ExpandedGridviewAdapter
+                    android:id="@+id/galleryGridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="3"
+                    android:verticalSpacing="6dp"
+                    android:horizontalSpacing="6dp"
+                    android:stretchMode="columnWidth"
+                    android:padding="2dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════════
+             CARD: FUNERAL PROGRAM
+             ══════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/layout_background"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="14dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
 
-
-            <TextView
-                android:id="@+id/text_string"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/only_visible_to_farewell"
-                android:layout_gravity="center"
-                />
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <TextView
-                android:id="@+id/author_name"
-                android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="#D4AF6A"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Funeral Program"
+                        android:textColor="#0C1A2E"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/reviewProgramsRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════════
+             CARD: AUTHOR + SUBMISSION METADATA
+             ══════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="30dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/text_string"
-                android:text="Author"
-                android:padding="5dp"
-                android:textStyle="bold"/>
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <TextView
-                android:id="@+id/author_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/author_name"
-                android:text="0712123123"
-                android:padding="10dp"
-                android:textStyle="bold"/>
+                <!-- Card header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
 
-            <TextView
-                android:id="@+id/status_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_string"
-                android:layout_toLeftOf="@+id/status"
-                android:text="Status:"
-                android:padding="5dp"
-                android:textStyle="bold"/>
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="#D4AF6A"
+                        android:layout_marginEnd="10dp" />
 
-            <TextView
-                android:id="@+id/status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_string"
-                android:layout_alignParentEnd="true"
-                android:text="Unconfirmed"
-                android:textColor="#FF5722"
-                android:padding="5dp"
-                android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Submission Details"
+                        android:textColor="#0C1A2E"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/date_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/date_created"
-                android:layout_below="@+id/status_text"
-                android:text="Uploaded:"
-                android:padding="5dp"
-                android:textStyle="bold"/>
+                <!-- Privacy notice banner -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/info_banner_bg"
+                    android:padding="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
 
-            <TextView
-                android:id="@+id/date_created"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/status"
-                android:layout_alignParentEnd="true"
-                android:text="12 Dec 2020"
-                android:textColor="#FF5722"
-                android:padding="5dp"
-                android:textStyle="bold"/>
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/location_on"
+                        android:tint="#D4AF6A"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="Info" />
 
-        </RelativeLayout>
+                    <TextView
+                        android:id="@+id/text_string"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/only_visible_to_farewell"
+                        android:textColor="#6B5E42"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- Author row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="14dp"
+                    android:layout_marginBottom="14dp">
+
+                    <!-- Avatar circle -->
+                    <FrameLayout
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/avatar_circle_bg"
+                        android:layout_marginEnd="14dp">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/location_on"
+                            android:contentDescription="Author"
+                            app:tint="#FFFFFF" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/author_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Author"
+                            android:textColor="#0C1A2E"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:id="@+id/author_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0712 123 123"
+                            android:textColor="#8A7A5A"
+                            android:textSize="13sp"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0E8D4"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Status row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/status_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Status"
+                        android:textColor="#8A7A5A"
+                        android:textSize="13sp"
+                        android:fontFamily="sans-serif-medium" />
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Unconfirmed"
+                        android:textColor="#B45309"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/status_badge_bg"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp" />
+                </LinearLayout>
+
+                <!-- Upload date row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/date_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Uploaded"
+                        android:textColor="#8A7A5A"
+                        android:textSize="13sp"
+                        android:fontFamily="sans-serif-medium" />
+
+                    <TextView
+                        android:id="@+id/date_created"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12 Dec 2020"
+                        android:textColor="#0C1A2E"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-medium" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 </ScrollView>

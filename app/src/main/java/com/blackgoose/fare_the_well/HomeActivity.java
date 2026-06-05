@@ -5,16 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.cardview.widget.CardView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +23,9 @@ public class HomeActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_home);
 
-        Button btnOpenNext = findViewById(R.id.browse_button);
-        Button btnOpenEulogyInput = findViewById(R.id.newEulogy_button);
-        Button btnAccount = findViewById(R.id.account_button);
+        CardView btnOpenNext = findViewById(R.id.browse_button);
+        CardView btnOpenEulogyInput = findViewById(R.id.newEulogy_button);
+        CardView btnAccount = findViewById(R.id.account_button);
 
         btnOpenNext.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- country_picker_bg.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#FAFAF8" />
+    <stroke android:width="1.5dp" android:color="#E5D8BB" />
+    <corners android:radius="10dp" />
+</shape>

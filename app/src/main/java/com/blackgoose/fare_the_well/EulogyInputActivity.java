@@ -143,9 +143,22 @@ public class EulogyInputActivity extends AppCompatActivity {
         builder.show();
     }
 
+    private boolean isValidPhone(String phone) {
 
+        phone = phone.trim();
+
+        // Kenya formats:
+        // 07XXXXXXXX
+        // +2547XXXXXXXX
+        // 2547XXXXXXXX
+
+        String pattern = "^(\\+254|254|0)[7][0-9]{8}$";
+
+        return phone.matches(pattern);
+    }
     private void proceedToNext() {
 
+        // ---- IMAGE VALIDATION ----
         if (mainImageUri == null) {
             Toast.makeText(this, "Please select a main image", Toast.LENGTH_SHORT).show();
             return;
@@ -156,7 +169,7 @@ public class EulogyInputActivity extends AppCompatActivity {
             return;
         }
 
-        // Collect all data from EditTexts
+        // ---- GET INPUTS ----
         String firstName = edtFirstName.getText().toString().trim();
         String secondName = edtSecondName.getText().toString().trim();
         String lastName = edtLastName.getText().toString().trim();
@@ -167,13 +180,94 @@ public class EulogyInputActivity extends AppCompatActivity {
         String authorName = edtAuthorName.getText().toString().trim();
         String authorPhone = edtAuthorPhone.getText().toString().trim();
 
-        // Convert Uri list to Strings for the Intent
+        // ---- FIELD VALIDATION ----
+        if (firstName.isEmpty()) {
+            edtFirstName.setError("First name required");
+            edtFirstName.requestFocus();
+            return;
+        }
+
+        if (secondName.isEmpty()) {
+            edtSecondName.setError("Second name required");
+            edtSecondName.requestFocus();
+            return;
+        }
+
+        if (lastName.isEmpty()) {
+            edtLastName.setError("Last name required");
+            edtLastName.requestFocus();
+            return;
+        }
+
+        if (burialLocation.isEmpty()) {
+            edtBurialLocation.setError("Burial location required");
+            edtBurialLocation.requestFocus();
+            return;
+        }
+
+        if (birthYear.isEmpty()) {
+            edtBirthYear.setError("Select birth year");
+            return;
+        }
+
+        if (passingYear.isEmpty()) {
+            edtPassingYear.setError("Select passing year");
+            return;
+        }
+
+        // ---- YEAR LOGIC VALIDATION ----
+        try {
+            int birth = Integer.parseInt(birthYear);
+            int passing = Integer.parseInt(passingYear);
+
+            if (passing < birth) {
+                Toast.makeText(this,
+                        "Passing year cannot be before birth year",
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(this,
+                    "Invalid year format",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // ---- EULOGY TEXT ----
+        if (eulogyText.isEmpty() || eulogyText.length() < 20) {
+            edtEulogy.setError("Eulogy must be at least 20 characters");
+            edtEulogy.requestFocus();
+            return;
+        }
+
+        // ---- AUTHOR VALIDATION ----
+        if (authorName.isEmpty()) {
+            edtAuthorName.setError("Author name required");
+            edtAuthorName.requestFocus();
+            return;
+        }
+
+        if (authorPhone.isEmpty()) {
+            edtAuthorPhone.setError("Phone required");
+            edtAuthorPhone.requestFocus();
+            return;
+        }
+
+        // ---- PHONE VALIDATION (Kenya format friendly) ----
+        if (!isValidPhone(authorPhone)) {
+            edtAuthorPhone.setError("Enter valid phone (e.g. 07XXXXXXXX or +2547XXXXXXXX)");
+            edtAuthorPhone.requestFocus();
+            return;
+        }
+
+        // ---- CONVERT IMAGES ----
         ArrayList<String> galleryImageStrings = new ArrayList<>();
         for (Uri uri : galleryUris) {
             galleryImageStrings.add(uri.toString());
         }
 
-        // Send to next activity
+        // ---- MOVE TO NEXT SCREEN ----
         Intent intent = new Intent(EulogyInputActivity.this, ProgramSetActivity.class);
 
         intent.putExtra("firstName", firstName);

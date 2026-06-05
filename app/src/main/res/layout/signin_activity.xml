@@ -1,86 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
+<!-- ============================================================
+     REVAMPED: LOGIN / SIGN-IN SCREEN
+     Aesthetic: Warm Luxury Memorial — navy + ivory + gold
+     All original IDs preserved.
+     ============================================================ -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#F5F0E8"
+    android:fillViewport="true">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:orientation="vertical">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login your Farewell account"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:textColor="#232323"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/signinText"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:textColor="#232323"
-            android:textSize="12sp"
-            android:textStyle="bold"/>
-
+        <!-- TOP NAVY BRAND HEADER -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#0C1A2E"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="52dp"
+            android:paddingBottom="40dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
 
-            <CheckBox android:id="@+id/checkbox_privacy"
+            <!-- Logo circle -->
+            <FrameLayout
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="@drawable/logo_circle_bg"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/location_on"
+                    android:contentDescription="Farewell logo"
+                    app:tint="#D4AF6A" />
+            </FrameLayout>
+
+            <!-- App name -->
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                />
+                android:text="Farewell"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:letterSpacing="0.04"
+                android:layout_marginBottom="6dp" />
 
-        <TextView
-            android:id="@+id/termsPrivacy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/privacyTerms"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:textColor="#040C3C"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="10dp"
-            >
-        </TextView>
+            <!-- Gold rule -->
+            <View
+                android:layout_width="40dp"
+                android:layout_height="2dp"
+                android:background="#D4AF6A"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Honouring lives, preserving legacies"
+                android:textColor="#8A9AB5"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:letterSpacing="0.02" />
         </LinearLayout>
 
+        <!-- Gold accent rule -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#D4AF6A" />
+
+        <!-- SIGN-IN CARD -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="28dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <!-- Card header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="26dp"
+                        android:background="#D4AF6A"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Login to your account"
+                        android:textColor="#0C1A2E"
+                        android:textSize="18sp"
+                        android:fontFamily="serif"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Subtitle -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/signinText"
+                    android:textColor="#8A7A5A"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif"
+                    android:lineSpacingMultiplier="1.5"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginBottom="24dp" />
+
+                <!-- Privacy & Terms row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/info_banner_bg"
+                    android:padding="12dp"
+                    android:layout_marginBottom="28dp">
+
+                    <CheckBox
+                        android:id="@+id/checkbox_privacy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#D4AF6A"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:id="@+id/termsPrivacy"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/privacyTerms"
+                        android:textColor="#0C1A2E"
+                        android:textSize="12sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:lineSpacingMultiplier="1.4" />
+                </LinearLayout>
+
+                <!-- Label -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CONTINUE WITH GOOGLE"
+                    android:textColor="#D4AF6A"
+                    android:textSize="10sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.14"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="14dp" />
+
+                <!-- Google Sign-In Button -->
+                <com.google.android.gms.common.SignInButton
+                    android:id="@+id/sign_in_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginBottom="4dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Footer note -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign in with Google"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/poppinssemibold"
-            android:textColor="#FF5722"
-            android:layout_gravity="center"
-            android:textStyle="bold"/>
-
-
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/sign_in_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="32dp"
+            android:text="By continuing, you agree to our Terms &amp; Privacy Policy"
+            android:textColor="#9A8A70"
+            android:textSize="11sp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp" />
 
     </LinearLayout>
 </ScrollView>

@@ -4,18 +4,18 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="#03002e"
+    android:background="#F7F7F8"
     >
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="#FF5722"
+        app:tabIndicatorColor="#00BCD4"
         app:tabSelectedTextColor="#FF5722"
         app:tabMode="fixed"
         app:tabGravity="fill"
-        app:tabTextColor="@color/white" />
+        app:tabTextColor="#D4AF6A" />
 
     <!-- ViewPager2 sits BELOW the tabs correctly -->
     <androidx.viewpager2.widget.ViewPager2

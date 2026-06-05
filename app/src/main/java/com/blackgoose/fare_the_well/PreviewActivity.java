@@ -18,13 +18,18 @@ import com.blackgoose.fare_the_well.Adapters.ProgramAdapter;
 import com.blackgoose.fare_the_well.Models.ProgramModel;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class PreviewActivity extends AppCompatActivity {
@@ -46,7 +51,7 @@ public class PreviewActivity extends AppCompatActivity {
 
     // NEW FIELDS
     private String userId;
-    private String mpesaReceipt;  // optional if you add real receipt later
+    private String mpesaReceipt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +100,7 @@ public class PreviewActivity extends AppCompatActivity {
         authorName = getIntent().getStringExtra("authorName");
         authorPhone = getIntent().getStringExtra("authorPhone");
 
-        // OPTIONAL: if passed from previous activity
+        // OPTIONAL
         mpesaReceipt = getIntent().getStringExtra("mpesaReceipt");
         if (mpesaReceipt == null) mpesaReceipt = "";
 
@@ -115,13 +120,14 @@ public class PreviewActivity extends AppCompatActivity {
             Glide.with(this).load(Uri.parse(mainImageUri)).into(mainImageView);
         }
 
-        // ViewPager gallery
+        // Gallery ViewPager
         if (galleryImages != null && !galleryImages.isEmpty()) {
-            PreviewImagesAdapter adapter = new PreviewImagesAdapter(PreviewActivity.this, galleryImages);
+            PreviewImagesAdapter adapter =
+                    new PreviewImagesAdapter(PreviewActivity.this, galleryImages);
             viewPager.setAdapter(adapter);
         }
 
-        // Programs list
+        // Programs RecyclerView
         if (programs != null) {
             programsRv.setLayoutManager(new LinearLayoutManager(this));
             programsRv.setAdapter(new ProgramAdapter(programs));
@@ -147,17 +153,24 @@ public class PreviewActivity extends AppCompatActivity {
         StorageReference storageRef =
                 FirebaseStorage.getInstance().getReference("eulogyPictures");
 
-        StorageReference mainRef = storageRef.child("main_" + System.currentTimeMillis() + ".jpg");
+        StorageReference mainRef =
+                storageRef.child("main_" + System.currentTimeMillis() + ".jpg");
 
         mainRef.putFile(Uri.parse(mainImageUri))
                 .continueWithTask(task -> mainRef.getDownloadUrl())
                 .addOnSuccessListener(url -> {
+
                     mainImageDownloadUrl = url.toString();
                     uploadGalleryImages(storageRef);
+
                 })
                 .addOnFailureListener(e -> {
+
                     progressDialog.dismiss();
-                    Toast.makeText(this, "Main image upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,
+                            "Main image upload failed: " + e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+
                 });
     }
 
@@ -168,7 +181,11 @@ public class PreviewActivity extends AppCompatActivity {
         for (int i = 0; i < galleryImages.size(); i++) {
 
             Uri imageUri = Uri.parse(galleryImages.get(i));
-            StorageReference gRef = storageRef.child("gallery_" + System.currentTimeMillis() + "_" + i + ".jpg");
+
+            StorageReference gRef =
+                    storageRef.child("gallery_" +
+                            System.currentTimeMillis() +
+                            "_" + i + ".jpg");
 
             gRef.putFile(imageUri)
                     .continueWithTask(task -> gRef.getDownloadUrl())
@@ -177,39 +194,108 @@ public class PreviewActivity extends AppCompatActivity {
                         uploadedGalleryUrls.add(url.toString());
 
                         if (uploadedGalleryUrls.size() == galleryImages.size()) {
-                            saveToDatabase(uploadedGalleryUrls);
+                            generateUniqueEulogyIdAndSave(uploadedGalleryUrls);
                         }
 
-                    }).addOnFailureListener(e -> {
+                    })
+                    .addOnFailureListener(e -> {
+
                         progressDialog.dismiss();
-                        Toast.makeText(this, "Gallery upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(this,
+                                "Gallery upload failed: " + e.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+
                     });
         }
     }
-    private void saveToDatabase(List<String> galleryUrls) {
 
-        // Generate formatted date (short month name)
+    // GENERATE RANDOM 5 CHARACTER ID
+    private String generateEulogyId() {
+
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        SecureRandom random = new SecureRandom();
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < 5; i++) {
+            sb.append(chars.charAt(random.nextInt(chars.length())));
+        }
+
+        return sb.toString();
+    }
+
+    // CHECK IF ID EXISTS BEFORE SAVING
+    private void generateUniqueEulogyIdAndSave(List<String> galleryUrls) {
+
+        String eulogyId = generateEulogyId();
+
+        FirebaseDatabase.getInstance()
+                .getReference("Eulogies")
+                .child(eulogyId)
+                .get()
+                .addOnSuccessListener(snapshot -> {
+
+                    if (snapshot.exists()) {
+
+                        // ID already exists, generate another
+                        generateUniqueEulogyIdAndSave(galleryUrls);
+
+                    } else {
+
+                        // ID is unique
+                        saveToDatabase(eulogyId, galleryUrls);
+
+                    }
+
+                })
+                .addOnFailureListener(e -> {
+
+                    progressDialog.dismiss();
+
+                    Toast.makeText(this,
+                            "Failed to generate ID: " + e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+
+                });
+    }
+
+    private void saveToDatabase(String eulogyId, List<String> galleryUrls) {
+
         long timestamp = System.currentTimeMillis();
-        String dateCreated = new java.text.SimpleDateFormat("dd MMM yyyy")
-                .format(new java.util.Date(timestamp));
+
+        String dateCreated = new SimpleDateFormat(
+                "dd MMM yyyy",
+                Locale.getDefault()
+        ).format(new Date(timestamp));
 
         Map<String, Object> data = new HashMap<>();
+
+        data.put("eulogyId", eulogyId);
+
         data.put("firstName", firstName);
         data.put("secondName", secondName);
         data.put("lastName", lastName);
+
         data.put("birthYear", birthYear);
         data.put("passingYear", passingYear);
+
         data.put("burialLocation", burialLocation);
+
         data.put("eulogyText", eulogyText);
+
         data.put("authorName", authorName);
         data.put("authorPhone", authorPhone);
 
         data.put("mainImageUrl", mainImageDownloadUrl);
+
         data.put("galleryImages", galleryUrls);
+
         data.put("funeralPrograms", programs);
+
         data.put("status", "unpublished");
 
-        // NEW FIELDS
+        // EXTRA FIELDS
         data.put("userId", userId);
         data.put("mpesaReceipt", mpesaReceipt);
 
@@ -219,17 +305,27 @@ public class PreviewActivity extends AppCompatActivity {
 
         FirebaseDatabase.getInstance()
                 .getReference("Eulogies")
-                .push()
+                .child(eulogyId)
                 .setValue(data)
                 .addOnSuccessListener(aVoid -> {
+
                     progressDialog.dismiss();
-                    Toast.makeText(this, "Eulogy Published Successfully", Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(this,
+                            "Eulogy Published Successfully",
+                            Toast.LENGTH_LONG).show();
+
                     finish();
+
                 })
                 .addOnFailureListener(e -> {
+
                     progressDialog.dismiss();
-                    Toast.makeText(this, "Failed to upload: " + e.getMessage(), Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(this,
+                            "Failed to upload: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+
                 });
     }
-
 }
